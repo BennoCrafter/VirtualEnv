@@ -1,0 +1,16 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: lightgray;
+}
+
+#board-canvas {
+    margin: 10px;
+    display: flex;
+    position: relative;
+    background-color: white;
+}
