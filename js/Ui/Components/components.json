@@ -40,16 +40,16 @@
     },
     {
         "image": "js/Ui/Components/Images/Boty.png",
-        "name": "Component 6",
+        "name": "Component 9",
         "description": "This is a description of Component 9."
     },    {
         "image": "js/Ui/Components/Images/Boty.png",
-        "name": "Component 7",
+        "name": "Component 10",
         "description": "This is a description of Component 10."
     },
     {
         "image": "js/Ui/Components/Images/Boty.png",
-        "name": "Component 8",
+        "name": "Component 11",
         "description": "This is a description of Component 11."
     }
 ]
