@@ -1,0 +1,31 @@
+#component-list {
+    position: absolute;
+    width: 20%;
+    height: 100%; /* Adjust the maximum height as needed */
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.list-container {
+    z-index: 1;
+    height: 400px; /* Adjust the height as needed */
+    overflow-x: scroll;
+    border: 1px solid #ccc; /* Optional: Add a border for visual separation */
+    width: 200px;
+}
+.list-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 50px;
+}
+.list-item img {
+    max-width: 30px; /* Adjust the width as needed */
+    max-height: 30px; /* Set a maximum height to control thickness */
+    margin-right: 10px;
+}

@@ -4,12 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VirtualEnv - Arduino for Stubenhocker</title>
+    <!-- Styles-->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components-style.css">
+    <link rel="stylesheet" href="css/inspector-style.css">
 </head>
-<link rel="stylesheet" href="css/style.css">
 <body>
-    <canvas id="board-canvas" width="400" height="400"></canvas>
+    <button onclick="toggleComponents(this)">Toggle Components</button>
+    <div class="list-container" id="component-list"></div>
 
+    <div id="inspector"></div>
+    <div class="arduinoBase">
+        <canvas id="board-canvas" width="400" height="400"></canvas>
+        <canvas id="arduino-canvas" width="350" height="200"></canvas>
+    </div>
+    
     <script src="js/script.js"></script>
-    <script src="js/board.js"></script>
+    <script src="Ui/Components/Scripts/renderComponents.js"></script>
+    <script src="js/arduinoPartsCore.js"></script>
+    <script src="Ui/Components/Scripts/toggleButton.js"></script>
 </body>
 </html>
