@@ -3,7 +3,7 @@ class Arduino {
         // initilize canvas props
         this.canvas = canvas;
         this.context = this.canvas.getContext("2d");
-        this.canvas.addEventListener("click", this.checkPin.bind(this));
+        this.canvas.addEventListener("click", this.getPin.bind(this), );
 
         // setup slots that can be changes due the inspector
         this.slots = 10;
@@ -13,7 +13,6 @@ class Arduino {
 
         // draw arudino
         this.setupCanvas();
-        this.setupDecoration();
     }
 
     setupCanvas() {
@@ -37,6 +36,7 @@ class Arduino {
                     x: lastPositionX,
                     y: pinY,
                     number: i + 1,
+                    type: "default-pin",
                 });
             }
 
@@ -63,6 +63,7 @@ class Arduino {
                     x: lastPositionX,
                     y: pinY,
                     number: i + 1,
+                    type: "mass-pin",
                 });
             }
 
@@ -74,17 +75,7 @@ class Arduino {
         }
     }
 
-    setupDecoration() {
-        // draw usb input
-        const usbImage = new Image();
-        usbImage.src = "USB-input.png";
-
-        usbImage.onload = function () {
-            this.context.drawImage(usbImage, 0, this.canvas.height / 2);
-        }
-    }
-
-    checkPin(event) {
+    getPin(event) {
         const mouseX = event.clientX - this.canvas.getBoundingClientRect().left;
         const mouseY = event.clientY - this.canvas.getBoundingClientRect().top;
 
@@ -96,7 +87,7 @@ class Arduino {
                 mouseY >= pin.y &&
                 mouseY <= pin.y + this.pinSize
             ) {
-                console.log("Klick auf Pin: " + pin.number);
+                console.log("clicked " + pin.type + ": " + pin.number);
                 return pin.number;
             }
         }

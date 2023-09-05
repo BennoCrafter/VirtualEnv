@@ -28,5 +28,28 @@
         "image": "Ui/Components/Images/Boty.png",
         "name": "Component 6",
         "description": "This is a description of Component 2."
-    }
+    },    {
+        "image": "Ui/Components/Images/Boty.png",
+        "name": "Component 7",
+        "description": "This is a description of Component 1."
+    },
+    {
+        "image": "Ui/Components/Images/Boty.png",
+        "name": "Component 8",
+        "description": "This is a description of Component 2."
+    },
+{
+    "image": "Ui/Components/Images/Boty.png",
+    "name": "Component 6",
+    "description": "This is a description of Component 2."
+},    {
+    "image": "Ui/Components/Images/Boty.png",
+    "name": "Component 7",
+    "description": "This is a description of Component 1."
+},
+{
+    "image": "Ui/Components/Images/Boty.png",
+    "name": "Component 8",
+    "description": "This is a description of Component 2."
+}
 ]

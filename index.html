@@ -8,20 +8,20 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components-style.css">
     <link rel="stylesheet" href="css/inspector-style.css">
+    <link rel="stylesheet" href="css/toggleCompButton-style.css">
 </head>
 <body>
-    <button onclick="toggleComponents(this)">Toggle Components</button>
-    <div class="list-container" id="component-list"></div>
+    <button id="toggle-comp-button" class="toggle-comp-button" >Toggle Components</button>
+    <div class="list-container" id="component-list" ></div>
 
     <div id="inspector"></div>
     <div class="arduinoBase">
         <canvas id="board-canvas" width="400" height="400"></canvas>
         <canvas id="arduino-canvas" width="350" height="200"></canvas>
     </div>
-    
+    <script src="Ui/Components/Scripts/componentHandler.js"></script>
     <script src="js/script.js"></script>
-    <script src="Ui/Components/Scripts/renderComponents.js"></script>
     <script src="js/arduinoPartsCore.js"></script>
-    <script src="Ui/Components/Scripts/toggleButton.js"></script>
+    <script src="Ui/Components/Scripts/toggleCompButton.js"></script>
 </body>
 </html>
