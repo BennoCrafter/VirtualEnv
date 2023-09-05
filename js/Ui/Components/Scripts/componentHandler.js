@@ -16,7 +16,7 @@ class ComponentHandler{
         const componentList = document.getElementById('component-list');
     
         // Fetch JSON data
-        fetch('Ui/Components/components.json')
+        fetch('js/Ui/Components/components.json')
             .then(response => response.json())
             .then(components => {
                 components.forEach(component => {

@@ -1,54 +1,54 @@
 [
     {
-        "image": "Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/Boty.png",
         "name": "Component 1",
         "description": "This is a description of Component 1."
     },
     {
-        "image": "Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/Boty.png",
         "name": "Component 2",
         "description": "This is a description of Component 2."
     },
     {
-        "image": "Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/Boty.png",
         "name": "Component 3",
         "description": "This is a description of Component 1."
     },
     {
-        "image": "Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/Boty.png",
         "name": "Component 4",
         "description": "This is a description of Component 2."
     },
     {
-        "image": "Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/Boty.png",
         "name": "Component 5",
         "description": "This is a description of Component 1."
     },
     {
-        "image": "Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/Boty.png",
         "name": "Component 6",
         "description": "This is a description of Component 2."
     },    {
-        "image": "Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/Boty.png",
         "name": "Component 7",
         "description": "This is a description of Component 1."
     },
     {
-        "image": "Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/Boty.png",
         "name": "Component 8",
         "description": "This is a description of Component 2."
     },
 {
-    "image": "Ui/Components/Images/Boty.png",
+    "image": "js/Ui/Components/Images/Boty.png",
     "name": "Component 6",
     "description": "This is a description of Component 2."
 },    {
-    "image": "Ui/Components/Images/Boty.png",
+    "image": "js/Ui/Components/Images/Boty.png",
     "name": "Component 7",
     "description": "This is a description of Component 1."
 },
 {
-    "image": "Ui/Components/Images/Boty.png",
+    "image": "js/Ui/Components/Images/Boty.png",
     "name": "Component 8",
     "description": "This is a description of Component 2."
 }

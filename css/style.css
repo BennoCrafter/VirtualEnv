@@ -10,11 +10,11 @@ body {
 }
 
 
-.arduinoBase{
+.Powerbase{
     margin: auto;
 }
 
-#arduino-canvas {
+#powerBase-canvas {
     margin-left: auto;
     margin-right: auto;
     display: block;
