@@ -15,22 +15,16 @@ body {
 }
 
 #arduino-canvas {
-    z-index: -1;
-    padding-left: 0;
-    padding-right: 0;
     margin-left: auto;
     margin-right: auto;
     display: block;
-
+    margin-top: 3%;
 }
 
 
 #board-canvas {
-    z-index: -1;
     position: relative;
     background-color: white;
-    padding-left: 0;
-    padding-right: 0;
     margin-left: auto;
     margin-right: auto;
     display: block;
