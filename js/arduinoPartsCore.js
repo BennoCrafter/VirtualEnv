@@ -1,10 +1,13 @@
+import ("../Ui/Components/Scripts/componentHandler.js")
+
+
 class Arduino {
     constructor(canvas) {
         // initilize canvas props
         this.canvas = canvas;
         this.context = this.canvas.getContext("2d");
         this.canvas.addEventListener("click", this.getPin.bind(this), );
-
+    
         // setup slots that can be changes due the inspector
         this.slots = 10;
         this.massPins = 2;
@@ -96,14 +99,17 @@ class Arduino {
 
 class Board {
     constructor(canvas) {
+        // init
         this.canvas = canvas;
+        this.componentHanlder = new ComponentHandler();
         this.gridSize = 10; // value^2 is the amount of grids
+
         this.canvas.addEventListener("click", (event) => {
             var mouseX = event.clientX - canvas.getBoundingClientRect().left;
             var mouseY = event.clientY - canvas.getBoundingClientRect().top;
             
             var gridPosition = this.getGridPosition(this.canvas, this.gridSize, mouseX, mouseY);
-            console.log("gridpos:", gridPosition.col, gridPosition.row);
+            console.log("placed:", this.componentHanlder.getCurrentComponent().name, "at grid position:", gridPosition.col, gridPosition.row);
         });
         
         this.pixelGrid = [];
