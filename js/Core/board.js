@@ -12,7 +12,12 @@ class Board {
             var mouseY = event.clientY - canvas.getBoundingClientRect().top;
             
             var gridPosition = this.getGridPosition(this.canvas, this.gridSize, mouseX, mouseY);
-            console.log("placed:", this.componentHanlder.getCurrentComponent().name, "at grid position:", gridPosition.col, gridPosition.row);
+            try{
+                console.log("placed:", this.componentHanlder.getCurrentComponent().name, "at grid position:", gridPosition.col, gridPosition.row);
+
+            } catch{
+                console.warn("No Component selected!")
+            }
         });
         
         this.pixelGrid = [];
