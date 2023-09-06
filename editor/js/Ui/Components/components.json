@@ -1,41 +1,41 @@
 [
     {
         "image": "js/Ui/Components/Images/Boty.png",
-        "name": "Component 1",
-        "description": "This is a description of Component 1."
+        "name": "LED",
+        "description": "LED's are little devices that emit light when electric current flows through them.."
     },
     {
         "image": "js/Ui/Components/Images/Boty.png",
-        "name": "Component 2",
+        "name": "Resistor",
         "description": "This is a description of Component 2."
     },
     {
         "image": "js/Ui/Components/Images/Boty.png",
-        "name": "Component 3",
+        "name":  "Button",
         "description": "This is a description of Component 3."
     },
     {
         "image": "js/Ui/Components/Images/Boty.png",
-        "name": "Component 4",
+        "name": "Buzzer",
         "description": "This is a description of Component 4."
     },
     {
         "image": "js/Ui/Components/Images/Boty.png",
-        "name": "Component 5",
+        "name": "Light Sensor",
         "description": "This is a description of Component 5."
     },
     {
         "image": "js/Ui/Components/Images/Boty.png",
-        "name": "Component 6",
+        "name": "Variable Resistor",
         "description": "This is a description of Component 6."
     },    {
         "image": "js/Ui/Components/Images/Boty.png",
-        "name": "Component 7",
+        "name": "Cable",
         "description": "This is a description of Component 7."
     },
     {
         "image": "js/Ui/Components/Images/Boty.png",
-        "name": "Component 8",
+        "name": "Jumper Cable",
         "description": "This is a description of Component 8."
     },
     {

@@ -38,10 +38,8 @@ class ComponentHandler {
                     listItem.appendChild(description);
                     componentList.appendChild(listItem);
 
-                    listItem.addEventListener('click', () => {
+                    listItem.addEventListener('mousedown', () => {
                         this.setComponent(component);
-                        console.log(component.name);
-                        console.log(listItem);
                         
                         listItem.style.transform = "scale(0.9)";
                         setTimeout(function() {
