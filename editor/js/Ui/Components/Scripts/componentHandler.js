@@ -1,6 +1,7 @@
 class ComponentHandler {
     constructor() {
         this.currentComp = undefined;
+        this.imageFromTop = undefined;
         this.renderComponents();
     }
 
@@ -12,6 +13,9 @@ class ComponentHandler {
         return this.currentComp;
     }
 
+    getImageFromTop(){
+        return this.imageFromTop;
+    }
     renderComponents() {
         const componentList = document.getElementById('component-list');
 

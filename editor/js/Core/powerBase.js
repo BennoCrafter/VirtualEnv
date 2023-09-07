@@ -3,13 +3,15 @@ class PowerBase {
         // initilize canvas props
         this.canvas = canvas;
         this.context = this.canvas.getContext("2d");
-        this.canvas.addEventListener("click", this.getPin.bind(this), );
+        // moved to board.js
+        // this.canvas.addEventListener("click", this.getPin.bind(this));
     
         // setup slots that can be changes due the inspector
         this.slots = 10;
         this.massPins = 2;
         this.pinSize = 12;
         this.pins = [];
+        this.currPin = null;
 
         // draw arudino
         this.setupCanvas();
@@ -50,7 +52,6 @@ class PowerBase {
         // setup Mass Pins
         this.setupMassPins();
     }
-
     setupMassPins() {
         let lastPositionX = 10;
         const pinY = this.canvas.height - 50;
@@ -76,6 +77,7 @@ class PowerBase {
     }
 
     getPin(event) {
+        console.log("hi");
         const mouseX = event.clientX - this.canvas.getBoundingClientRect().left;
         const mouseY = event.clientY - this.canvas.getBoundingClientRect().top;
 
@@ -87,8 +89,9 @@ class PowerBase {
                 mouseY >= pin.y &&
                 mouseY <= pin.y + this.pinSize
             ) {
-                console.log("clicked " + pin.type + ": " + pin.number);
-                return pin.number;
+                this.currPin = pin;
+                console.log(this.currPin);
+                return pin;
             }
         }
     }

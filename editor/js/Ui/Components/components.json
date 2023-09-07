@@ -1,8 +1,9 @@
 [
     {
-        "image": "js/Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/redLED.png",
         "name": "LED",
-        "description": "LED's are little devices that emit light when electric current flows through them.."
+        "description": "LED's are little devices that emit light when electric current flows through them..",
+        "imageFromTop": "js/Ui/Components/Images/LEDTopView.png"
     },
     {
         "image": "js/Ui/Components/Images/Boty.png",
