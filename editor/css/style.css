@@ -30,3 +30,12 @@ body {
     display: block;
 }
 
+.sidebar-buttons, #inspector, #component-list {
+    background-color: white;
+}
+
+.sidebar-buttons {
+    position: relative;
+    padding-bottom: 10px;
+    left: 75%;
+}

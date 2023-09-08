@@ -8,8 +8,8 @@ class PowerBase {
     
         // setup slots that can be changes due the inspector
         this.slots = 10;
-        this.massPins = 2;
-        this.pinSize = 12;
+        this.massPins = 5;
+        this.pinSize = 14;
         this.pins = [];
         this.currPin = null;
 
@@ -33,6 +33,7 @@ class PowerBase {
         for (let i = 0; i < this.slots; i++) {
             if (i < 14) {
                 this.context.fillText((i + 1).toString(), lastPositionX, 30);
+                console.log("1:", lastPositionX)
                 this.context.strokeRect(lastPositionX, pinY, this.pinSize, this.pinSize);
                 this.pins.push({
                     x: lastPositionX,
@@ -45,7 +46,7 @@ class PowerBase {
             if (i >= 9) {
                 lastPositionX += 30;
             } else {
-                lastPositionX += 20;
+                lastPositionX += 30;
             }
         }
 
@@ -54,7 +55,7 @@ class PowerBase {
     }
     setupMassPins() {
         let lastPositionX = 10;
-        const pinY = this.canvas.height - 50;
+        const pinY = this.canvas.height - 55;
 
         for (let i = 0; i < this.massPins; i++) {
             if (i < 14) {
@@ -71,13 +72,12 @@ class PowerBase {
             if (i >= 9) {
                 lastPositionX += 30;
             } else {
-                lastPositionX += 20;
+                lastPositionX += 30;
             }
         }
     }
 
     getPin(event) {
-        console.log("hi");
         const mouseX = event.clientX - this.canvas.getBoundingClientRect().left;
         const mouseY = event.clientY - this.canvas.getBoundingClientRect().top;
 
