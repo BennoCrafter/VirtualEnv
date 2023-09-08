@@ -1,9 +1,8 @@
 #inspector {
-    background-color: #ddd;
     position: fixed;
     display: relative;
-    left: 80%;
-    width: 20%;
+    left: 65%;
+    width: 25%;
     height: 100%;
     border: black solid 2px;
 }   
