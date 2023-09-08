@@ -1,7 +1,7 @@
 #inspector {
     position: fixed;
     display: relative;
-    left: 75%;
+    right: 75%;
     width: 25%;
     height: 100%;
     border: black solid 2px;

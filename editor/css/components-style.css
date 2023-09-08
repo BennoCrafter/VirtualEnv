@@ -19,7 +19,7 @@
 #component-list {
     position: absolute;
     width: 25%;
-    left: 75%;
+    right: 75%;
     height: 100%; /* Adjust the maximum height as needed */
     border: 1px solid #ddd;
     border-radius: 5px;
