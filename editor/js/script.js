@@ -2,13 +2,10 @@ import ("./Core/board.js");
 import ("./Core/powerBase.js");
 import ("./Ui/Inspector/inspector.js")
 
-let boardCanvas = document.getElementById("board-canvas");
-let inspector = document.getElementById("inspector");
-
 window.addEventListener("DOMContentLoaded", function () {
     showComponentList();
-    boardCanvas = new Board(boardCanvas);
-    inspector = new Inspector(inspector);
+    boardCanvas = new Board(document.getElementById("env"));
+    inspector = new Inspector(document.getElementById("inspector"));
 });
 
 function showComponentList(isTrue = true) {

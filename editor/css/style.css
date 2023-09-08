@@ -5,26 +5,12 @@
 }
 
 body {
-    background-color: lightgray;
+    background-color: white;
     overflow: hidden;
 }
 
-
-.powerbase{
-    margin: auto;
-}
-    
-#powerBase-canvas {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    margin-top: 3%;
-}
-
-
-#board-canvas {
+#env {
     position: relative;
-    background-color: white;
     margin-left: auto;
     margin-right: auto;
     display: block;

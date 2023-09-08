@@ -4,13 +4,11 @@ import ("./powerBase.js");
 
 class Board {
     constructor(canvas) {
-        let powerBase = document.getElementById("powerBase-canvas");
-
         // init
         this.canvas = canvas;
         this.context = this.canvas.getContext("2d");
         this.componentHandler = new ComponentHandler();
-        this.powerBase = new PowerBase(powerBase);
+        this.powerBase = new PowerBase(document.getElementById("env"));
 
         // settings
         this.gridWidth = 30;
@@ -19,10 +17,10 @@ class Board {
 
         // calculations
         this.gridSize = [this.gridWidth, this.gridHeight];
-        this.canvas.width = this.gridWidth * 25;
-        this.canvas.height = this.gridHeight * 25;
-        this.cellSizeX = this.canvas.width / this.gridSize[0];
-        this.cellSizeY = this.canvas.height / this.gridSize[1];
+        this.boardWidth = this.gridWidth * 17.5;
+        this.boardHeight = this.gridHeight * 17.5;
+        this.cellSizeX = this.boardWidth / this.gridSize[0];
+        this.cellSizeY = this.boardHeight / this.gridSize[1];
         
         this.allPlacedComponentsNames = [];
         this.currentPos = [];
@@ -36,23 +34,25 @@ class Board {
         this.canvas.addEventListener("mousedown", (event) => {
             var mouseX = event.clientX - canvas.getBoundingClientRect().left;
             var mouseY = event.clientY - canvas.getBoundingClientRect().top;
-            
-            var gridPosition = this.getGridPosition(this.canvas, this.gridSize, mouseX, mouseY);
-            this.currentPos.push([gridPosition.col, gridPosition.row])
-            try{
-                console.log("placed:", this.componentHandler.getCurrentComponent().name, "at grid position:", gridPosition.col, gridPosition.row);
-            } catch{
-                console.warn("No Component selected!")
-                console.warn("but it would be placed on: " + gridPosition.col, gridPosition.row);
-            }
-            if (this.currentPos.length == 2){
-                    // new component added to board
-                    // todo make only one name (no doubles)
-                    this.allPlacedComponentsNames.push(this.componentHandler.getCurrentComponent().name)
-                    this.newComponent(this.currentPos)
-                    // reset list
-                    this.currentPos = [];
+            if(mouseX < this.boardWidth && mouseY < this.boardHeight){
+                var gridPosition = this.getGridPosition(this.gridSize, mouseX, mouseY);
+                this.currentPos.push([gridPosition.col, gridPosition.row])
+                try{
+                    console.log("placed:", this.componentHandler.getCurrentComponent().name, "at grid position:", gridPosition.col, gridPosition.row);
+                } catch{
+                    console.warn("No Component selected!")
+                    console.warn("but it would be placed on: " + gridPosition.col, gridPosition.row);
                 }
+                if (this.currentPos.length == 2){
+                        // new component added to board
+                        // todo make only one name (no doubles)
+                        this.allPlacedComponentsNames.push(this.componentHandler.getCurrentComponent().name)
+                        this.newComponent(this.currentPos)
+                        // reset list
+                        this.currentPos = [];
+                    }
+            }
+
         }); 
 
         this.powerBase.canvas.addEventListener("click", (event) => {
@@ -69,9 +69,11 @@ class Board {
                 console.log(xPos, yPos)
                 console.log(this.currentPos)
                 console.log(this.powerBase.currPin.y)
-                this.drawWire(xPos, yPos, this.powerBase.currPin.x, this.powerBase.currPin.y, 'blue', 3);
+                this.drawWire(xPos, yPos, this.powerBase.currPin.x + this.powerBase.pinSize/2, this.powerBase.currPin.y + this.powerBase.pinSize/2, 'blue', 5);
                 this.updatePower()
                 this.updateComponents()
+                // reseting
+                this.componentHandler.currentComp = null
                 this.currentPos = [];
             }
 
@@ -86,8 +88,8 @@ class Board {
     newComponent(currentPos) {
         this.components[this.allPlacedComponentsNames[this.allPlacedComponentsNames.length - 1] + this.allPlacedComponentsNames.length] = { pos: currentPos, power: false }
     
-        var cellSizeX = this.canvas.width / this.gridSize[0];
-        var cellSizeY = this.canvas.height / this.gridSize[1];
+        var cellSizeX = this.boardWidth / this.gridSize[0];
+        var cellSizeY = this.boardHeight / this.gridSize[1];
         var img = new Image();
     
         img.src = this.componentHandler.getCurrentComponent().imageFromTop;
@@ -97,6 +99,7 @@ class Board {
             var yPos = Math.round((currentPos[0][1] * cellSizeY + currentPos[1][1] * cellSizeY) / 2) - cellSizeY;
             that.context.drawImage(img, xPos, yPos, cellSizeX, cellSizeY);
             
+            that.context.lineWidth = 4
             // draw Feets Wires
             that.context.beginPath();
             that.context.moveTo(xPos + 6, yPos + cellSizeY);
@@ -114,27 +117,26 @@ class Board {
     }
 
     setupCanvas() {
-        var cellSizeX = this.canvas.width / this.gridSize[0];
-        var cellSizeY = this.canvas.height / this.gridSize[1];   
-
-        for (var x = 0; x <= this.canvas.width; x += cellSizeX) {
+        var cellSizeX = this.boardWidth / this.gridSize[0];
+        var cellSizeY = this.boardHeight / this.gridSize[1];   
+        for (var x =-0; x <= this.boardWidth; x += cellSizeX) {
             this.context.moveTo(x, 0);
-            this.context.lineTo(x, this.canvas.height);
+            this.context.lineTo(x, this.boardHeight);
         }
 
-        for (var y = 0; y <= this.canvas.height; y += cellSizeY) {
+        for (var y=0; y <= this.boardHeight; y += cellSizeY) {
             this.context.moveTo(0, y);
-            this.context.lineTo(this.canvas.width, y);
+            this.context.lineTo(this.boardWidth, y);
         }
 
-        this.context.strokeStyle = "lightgray";
+        this.context.strokeStyle = "lightgrey";
         this.context.stroke();
     }
 
-    getGridPosition(canvas, gridSize, mouseX, mouseY) {
+    getGridPosition(gridSize, mouseX, mouseY) {
         // Calculate the gridpos
-        var cellSizeX = canvas.width / gridSize[0];
-        var cellSizeY = canvas.height / gridSize[1];
+        var cellSizeX = this.boardWidth / gridSize[0];
+        var cellSizeY = this.boardHeight / gridSize[1];
         var col = Math.floor(mouseX / cellSizeX);
         var row = Math.floor(mouseY / cellSizeY);
         
@@ -180,23 +182,14 @@ class Board {
         this.debug()
     }
 
-    drawWire(startX, startY, endX, endY, lineColor, lineWidth) {
-        const midpointX = (this.canvas.width + this.powerBase.canvas.width) / 2;
-        const midpointY = this.canvas.height;
-    
+    drawWire(startX, startY, endX, endY, lineColor, lineWidth) {    
         this.context.strokeStyle = lineColor;
         this.context.lineWidth = lineWidth;
         this.context.beginPath();
         this.context.moveTo(startX, startY);
-        this.context.lineTo(midpointX, midpointY);
+        this.context.lineTo(endX, endY);
         this.context.stroke();
-    
-        this.powerBase.context.strokeStyle = lineColor;
-        this.powerBase.context.lineWidth = lineWidth;
-        this.powerBase.context.beginPath();
-        this.powerBase.context.moveTo(midpointX, midpointY);
-        this.powerBase.context.lineTo(endX - this.powerBase.canvas.width, endY - this.powerBase.canvas.height);
-        this.powerBase.context.stroke();
+
     }
     
 

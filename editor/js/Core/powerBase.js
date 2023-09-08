@@ -13,6 +13,13 @@ class PowerBase {
         this.pins = [];
         this.currPin = null;
 
+        // determine width and height
+        this.width = 350
+        this.height = 200
+
+        // diffrent
+        this.dx = 100
+        this.dy = 200
         // draw arudino
         this.setupCanvas();
     }
@@ -23,7 +30,7 @@ class PowerBase {
 
         // set context props
         this.context.fillStyle = "#00A36C";
-        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.fillRect(this.dx, this.dy, this.width, this.height);
 
         this.context.fillStyle = "black";
         this.context.strokeStyle = "black";
@@ -32,12 +39,12 @@ class PowerBase {
         // setup the "default" pins
         for (let i = 0; i < this.slots; i++) {
             if (i < 14) {
-                this.context.fillText((i + 1).toString(), lastPositionX, 30);
-                console.log("1:", lastPositionX)
-                this.context.strokeRect(lastPositionX, pinY, this.pinSize, this.pinSize);
+                this.context.fillText((i + 1).toString(), lastPositionX + this.dx, 30 + this.dy);
+                console.log("1:", lastPositionX + this.dx)
+                this.context.strokeRect(lastPositionX + this.dx, pinY + this.dy, this.pinSize, this.pinSize);
                 this.pins.push({
-                    x: lastPositionX,
-                    y: pinY,
+                    x: lastPositionX + this.dx,
+                    y: pinY + this.dy,
                     number: i + 1,
                     type: "default-pin",
                 });
@@ -55,15 +62,15 @@ class PowerBase {
     }
     setupMassPins() {
         let lastPositionX = 10;
-        const pinY = this.canvas.height - 55;
+        const pinY = this.height - 55;
 
         for (let i = 0; i < this.massPins; i++) {
             if (i < 14) {
-                this.context.fillText((i + 1).toString(), lastPositionX, this.canvas.height - 20);
-                this.context.strokeRect(lastPositionX, pinY, this.pinSize, this.pinSize);
+                this.context.fillText((i + 1).toString(), lastPositionX + this.dx, this.height - 20 + this.dy);
+                this.context.strokeRect(lastPositionX + this.dx, pinY + this.dy, this.pinSize, this.pinSize);
                 this.pins.push({
-                    x: lastPositionX,
-                    y: pinY,
+                    x: lastPositionX + this.dx,
+                    y: pinY + this.dy,
                     number: i + 1,
                     type: "mass-pin",
                 });
