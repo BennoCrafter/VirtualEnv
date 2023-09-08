@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draw Connected Line Between Canvases</title>
+    <style>
+        .canvas-container {
+            display: flex;
+        }
+
+        canvas {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="canvas-container">
+        <canvas id="canvas1" width="400" height="200"></canvas>
+        <canvas id="canvas2" width="400" height="200"></canvas>
+    </div>
+
+    <script>    
+        function drawWire(canvas1, canvas2, startX, startY, endX, endY, lineColor, lineWidth) {
+            const ctx1 = canvas1.getContext('2d');
+            const ctx2 = canvas2.getContext('2d');
+
+            const midpointX = (canvas1.width + canvas2.width) / 2;
+
+            ctx1.strokeStyle = lineColor;
+            ctx1.lineWidth = lineWidth;
+            ctx1.beginPath();
+            ctx1.moveTo(startX, startY);
+            ctx1.lineTo(midpointX, startY);
+            ctx1.stroke();
+
+            ctx2.strokeStyle = lineColor;
+            ctx2.lineWidth = lineWidth;
+            ctx2.beginPath();
+            ctx2.moveTo(midpointX, startY);
+            ctx2.lineTo(endX - canvas1.width, endY);
+            ctx2.stroke();
+        }
+
+        // Usage example:
+        const canvas1 = document.getElementById('canvas1');
+        const canvas2 = document.getElementById('canvas2');
+
+        drawWire(canvas1, canvas2, 50, 100, 350, 100, 'blue', 3);
+    </script>
+</body>
+</html>
