@@ -40,7 +40,6 @@ class PowerBase {
         for (let i = 0; i < this.slots; i++) {
             if (i < 14) {
                 this.context.fillText((i + 1).toString(), lastPositionX + this.dx, 30 + this.dy);
-                console.log("1:", lastPositionX + this.dx)
                 this.context.strokeRect(lastPositionX + this.dx, pinY + this.dy, this.pinSize, this.pinSize);
                 this.pins.push({
                     x: lastPositionX + this.dx,
@@ -97,7 +96,6 @@ class PowerBase {
                 mouseY <= pin.y + this.pinSize
             ) {
                 this.currPin = pin;
-                console.log(this.currPin);
                 return pin;
             }
         }

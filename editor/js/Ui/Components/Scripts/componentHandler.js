@@ -41,7 +41,6 @@ class ComponentHandler {
                     listItem.appendChild(name);
                     listItem.appendChild(description);
                     componentList.appendChild(listItem);
-
                     listItem.addEventListener('mousedown', () => {
                         this.setComponent(component);
                         
