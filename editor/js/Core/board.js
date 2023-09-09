@@ -29,9 +29,15 @@ class Board {
         this.powerPos = []
 
 
+        this.pixelGrid = [];
+        this.boardListener(this.canvas)
+        this.powerBaseListener()
+        this.setupCanvas();
 
+    }
 
-        this.canvas.addEventListener("mousedown", (event) => {
+    boardListener(canvas){
+        canvas.addEventListener("mousedown", (event) => {
             var mouseX = event.clientX - canvas.getBoundingClientRect().left;
             var mouseY = event.clientY - canvas.getBoundingClientRect().top;
             if(mouseX < this.boardWidth && mouseY < this.boardHeight){
@@ -45,8 +51,7 @@ class Board {
                 }
                 if (this.currentPos.length == 2){
                         // new component added to board
-                        // todo make only one name (no doubles)
-                        this.allPlacedComponentsNames.push(this.componentHandler.getCurrentComponent().name)
+                        this.allPlacedComponentsNames.push(this.componentHandler.getCurrentComponent().name + this.allPlacedComponentsNames.length)
                         this.newComponent(this.currentPos)
                         // reset list
                         this.currentPos = [];
@@ -54,7 +59,9 @@ class Board {
             }
 
         }); 
+    }
 
+    powerBaseListener(){
         this.powerBase.canvas.addEventListener("click", (event) => {
             this.powerBase.getPin(event);
             if (this.componentHandler.getCurrentComponent().name == "Jumper Wire"){
@@ -79,10 +86,6 @@ class Board {
 
             
         });
-        this.pixelGrid = [];
-
-        this.setupCanvas();
-
     }
 
     newComponent(currentPos) {
@@ -99,19 +102,7 @@ class Board {
             var yPos = Math.round((currentPos[0][1] * cellSizeY + currentPos[1][1] * cellSizeY) / 2) - cellSizeY;
             that.context.drawImage(img, xPos, yPos, cellSizeX, cellSizeY);
             
-            that.context.lineWidth = 4
-            // draw Feets Wires
-            that.context.beginPath();
-            that.context.moveTo(xPos + 6, yPos + cellSizeY);
-            that.context.lineTo(currentPos[0][0] * cellSizeX + (cellSizeX / 2), currentPos[0][1] * cellSizeY + cellSizeY);
-            that.context.strokeStyle = "lightgray";
-            that.context.stroke();
-
-            that.context.beginPath();
-            that.context.moveTo(xPos + cellSizeX - 6, yPos + cellSizeY);
-            that.context.lineTo(currentPos[1][0] * cellSizeX + cellSizeX - (cellSizeX / 2), currentPos[1][1] * cellSizeY + cellSizeY);
-            that.context.strokeStyle = "lightgray";
-            that.context.stroke();
+            that.drawFeets(xPos, yPos, cellSizeX, cellSizeY, currentPos);
         };
         this.debug()
     }
@@ -192,6 +183,21 @@ class Board {
 
     }
     
+    drawFeets(xPos, yPos, cellSizeX, cellSizeY, currentPos) {
+        this.context.lineWidth = 4;
+        // draw Feets Wires
+        this.context.beginPath();
+        this.context.moveTo(xPos + 6, yPos + cellSizeY);
+        this.context.lineTo(currentPos[0][0] * cellSizeX + (cellSizeX / 2), currentPos[0][1] * cellSizeY + cellSizeY);
+        this.context.strokeStyle = "lightgray";
+        this.context.stroke();
+
+        this.context.beginPath();
+        this.context.moveTo(xPos + cellSizeX - 6, yPos + cellSizeY);
+        this.context.lineTo(currentPos[1][0] * cellSizeX + cellSizeX - (cellSizeX / 2), currentPos[1][1] * cellSizeY + cellSizeY);
+        this.context.strokeStyle = "lightgray";
+        this.context.stroke();
+    }
 
 
 }
