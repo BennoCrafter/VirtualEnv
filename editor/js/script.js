@@ -1,3 +1,8 @@
+// who wrote this bullshit? youreself lol
+// aka. Ben lol
+// gigachad move
+// ik
+// das lassen wir so, oder?
 import ("./Core/board.js");
 import ("./Core/powerBase.js");
 import ("./Ui/Inspector/inspector.js")

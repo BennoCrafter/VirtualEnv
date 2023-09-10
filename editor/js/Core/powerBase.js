@@ -96,6 +96,7 @@ class PowerBase {
                 mouseY <= pin.y + this.pinSize
             ) {
                 this.currPin = pin;
+                this.currPin["pos"] = {x: pin.x, y: pin.y}
                 return pin;
             }
         }

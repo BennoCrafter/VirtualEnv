@@ -13,6 +13,7 @@ class Board {
         this.gridWidth = 30;
         this.gridHeight = 10;
         this.powerRadius = 2;
+        this.lineWidth = 1;
 
         // options for lightattribute
         this.lightBlurOptions = ["rectangle", "circle", "none"];
@@ -28,13 +29,13 @@ class Board {
         this.currentPos = [];
         this.components = {};
         this.jumperWires = {};
-        this.powerPos = []
+        this.powerPos = [];
 
 
         this.pixelGrid = [];
         this.boardListener()
         this.powerBaseListener()
-        this.setupCanvas();
+        this.setupCanvas(this.lineWidth);
 
     }
 
@@ -42,7 +43,6 @@ class Board {
         this.canvas.addEventListener("mousedown", (event) => {
             var mouseX = event.clientX - this.canvas.getBoundingClientRect().left;
             var mouseY = event.clientY - this.canvas.getBoundingClientRect().top;   
-            console.log(mouseX, mouseY)
             if(mouseX < this.boardWidth && mouseY < this.boardHeight){
                 var gridPosition = this.getGridPosition(this.gridSize, mouseX, mouseY);
                 this.currentPos.push([gridPosition.col, gridPosition.row]);
@@ -73,15 +73,10 @@ class Board {
                     this.allPlacedComponentsNames.push(this.componentHandler.getCurrentComponent().name + this.allPlacedComponentsNames.length);
                     this.last_index_value = this.allPlacedComponentsNames[this.allPlacedComponentsNames.length-1];
                     
-                    this.jumperWires[this.last_index_value] = { gridPos: this.currentPos[0], pinNumber: this.powerBase.currPin.number, power: false };
+                    this.jumperWires[this.last_index_value] = { gridPos: this.currentPos[0], pinNumber: this.powerBase.currPin.number, pinPos: this.powerBase.currPin.pos, color: "blue", power: false };
                     // if selected pin is mass pin
                     this.jumperWires[this.last_index_value].power = true;
-                    let xPos = this.currentPos[0][0] * this.cellSizeX;
-                    let yPos = this.currentPos[0][1] * this.cellSizeY;
-                    console.log(xPos, yPos)
-                    console.log(this.currentPos)
-                    console.log(this.powerBase.currPin.y)
-                    this.drawWire(xPos, yPos, this.powerBase.currPin.x + this.powerBase.pinSize/2, this.powerBase.currPin.y + this.powerBase.pinSize/2, 'blue', 5);
+                    this.drawAllWires()
                     this.updatePower();
                     this.updateComponents();
                     // reseting
@@ -99,12 +94,13 @@ class Board {
 
         this.components[this.allPlacedComponentsNames[this.allPlacedComponentsNames.length - 1]] = { pos: currentPos, power: false, imageFromTop: this.componentHandler.getCurrentComponent().imageFromTop, type: this.componentHandler.getCurrentComponent().type}
     
-        this.screenRefresh()
+        this.updateComponents()
 
         this.debug()
     }   
 
-    setupCanvas() {
+    setupCanvas(lineWidth) {
+        this.context.lineWidth = lineWidth;
         var cellSizeX = this.boardWidth / this.gridSize[0];
         var cellSizeY = this.boardHeight / this.gridSize[1];   
         for (var x =-0; x <= this.boardWidth; x += cellSizeX) {
@@ -151,7 +147,6 @@ class Board {
                     this.powerPos.push([jumperWire.gridPos[0] + i, jumperWire.gridPos[1]]); // right
                     this.powerPos.push([jumperWire.gridPos[0] - i, jumperWire.gridPos[1]]); // left
                   }
-                console.log(this.powerPos)
             }
           });
     }
@@ -167,24 +162,21 @@ class Board {
                 }
             }
         })
-        this.updateLEDS()
-        this.debug()  
-
+        this.screenRefresh()
+        this.debug();
     }
 
-    updateLEDS(){
-        Object.entries(this.components).forEach(([name, comp]) => {
-            if (comp.type == "led"){
-                if (comp.power == true){
-                    var xPos = Math.round(comp.pos[0][0] * this.cellSizeX + comp.pos[1][0] * this.cellSizeX) / 2;
-                    var yPos = Math.round((comp.pos[0][1] * this.cellSizeY + comp.pos[1][1] * this.cellSizeY) / 2) - this.cellSizeY;
-                    console.log("eyey")
-                    this.updateLightBlur(xPos, yPos, true);
-                    this.componentRefresh(comp);
-                }else{this.updateLightBlur(xPos, yPos, false);}
+    updateLED(comp){
+        if (comp.type == "led"){
+            var xPos = Math.round(comp.pos[0][0] * this.cellSizeX + comp.pos[1][0] * this.cellSizeX) / 2;
+            var yPos = Math.round((comp.pos[0][1] * this.cellSizeY + comp.pos[1][1] * this.cellSizeY) / 2) - this.cellSizeY;
+            if (comp.power == true) {
+                this.updateLightBlur(xPos, yPos);
+            }else{
+                this.removeLightBlur(xPos, yPos);
             }
+        }
 
-        });
         // 
     }
     drawWire(startX, startY, endX, endY, lineColor, lineWidth) {    
@@ -195,6 +187,15 @@ class Board {
         this.context.lineTo(endX, endY);
         this.context.stroke();
 
+    }
+    
+    drawAllWires(){
+        Object.entries(this.jumperWires).forEach(([name, wire]) =>{
+            let xPos = wire.gridPos[0] * this.cellSizeX;
+            let yPos = wire.gridPos[1] * this.cellSizeY;
+            this.drawWire(xPos, yPos, wire.pinPos.x + this.powerBase.pinSize/2, wire.pinPos.y + this.powerBase.pinSize/2, wire.color, 5);
+
+        })    
     }
     
     drawFeets(xPos, yPos, cellSizeX, cellSizeY, currentPos) {
@@ -213,22 +214,14 @@ class Board {
         this.context.stroke();
     }
 
-    updateLightBlur(xPos, yPos, on) {
+    updateLightBlur(xPos, yPos) {
         switch (this.lightBlurOption) {
             case "rectangle":
-                if(on==true){
-                    this.context.shadowBlur = 20;
-                    this.context.shadowColor = "red";
-                    this.context.strokeStyle = "rgba(255, 0, 0, 0)";
-                    this.context.strokeRect(xPos, yPos, this.cellSizeX, this.cellSizeY);
-                    break; 
-                }else{
-                    this.context.shadowBlur = 0; 
-                    this.context.shadowColor = "transparent"; 
-
-                    this.context.strokeRect(xPos, yPos, this.cellSizeX, this.cellSizeY);
-
-                }
+                this.context.shadowBlur = 20;
+                this.context.shadowColor = "red";
+                this.context.strokeStyle = "rgba(255, 0, 0, 0)";
+                this.context.strokeRect(xPos, yPos, this.cellSizeX, this.cellSizeY);
+                break; 
             case "circle":
                 this.context.beginPath();
                 this.context.arc(xPos, yPos, 50, 0, Math.PI * 2);
@@ -249,34 +242,33 @@ class Board {
 
     }
 
+    removeLightBlur(xPos, yPos) {
+        this.context.shadowBlur = 0;
+        this.context.fillStyle = "white";
+        this.context.clearRect(xPos, yPos, this.cellSizeX, this.cellSizeY);
+    }
+
     screenRefresh() {
+        this.context.shadowBlur = 0; 
+        this.context.fillStyle = "white";
+        this.context.clearRect(0, 0, this.boardWidth, this.boardHeight);
+        this.setupCanvas(this.lineWidth);
         Object.entries(this.components).forEach(([name, comp]) => {
             var img = new Image();
-            img.src = comp.imageFromTop
+            img.src = comp.imageFromTop;
             const that = this; 
 
             img.onload = function () {
                 var xPos = Math.round(comp.pos[0][0] * that.cellSizeX + comp.pos[1][0] * that.cellSizeX) / 2;
                 var yPos = Math.round((comp.pos[0][1] * that.cellSizeY + comp.pos[1][1] * that.cellSizeY) / 2) - that.cellSizeY;
                 
+                that.updateLED(comp)
                 that.context.drawImage(img, xPos, yPos, that.cellSizeX, that.cellSizeY);
                 that.drawFeets(xPos, yPos, that.cellSizeX, that.cellSizeY, comp.pos);
+
             }
         });
-    }
-
-    componentRefresh(comp){
-        var img = new Image();
-        img.src = comp.imageFromTop
-        const that = this; 
-
-        img.onload = function () {
-            var xPos = Math.round(comp.pos[0][0] * that.cellSizeX + comp.pos[1][0] * that.cellSizeX) / 2;
-            var yPos = Math.round((comp.pos[0][1] * that.cellSizeY + comp.pos[1][1] * that.cellSizeY) / 2) - that.cellSizeY;
-            
-            that.context.drawImage(img, xPos, yPos, that.cellSizeX, that.cellSizeY);
-            that.drawFeets(xPos, yPos, that.cellSizeX, that.cellSizeY, comp.pos);
-        }
+        this.drawAllWires();
     }
 
     // todo doesnt work
