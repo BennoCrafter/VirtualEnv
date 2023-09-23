@@ -5,7 +5,6 @@ class Pin extends Board{
         super(document.getElementById("env"));
         this.power = power;
         this.pinNumber = pinNumber;
-        this.update();
     }
 
     power(){
@@ -14,6 +13,10 @@ class Pin extends Board{
     }
 
     update(){
+        this.getComponent(this.pinNumber);
+
+        // refresh screen
+        this.screenRefresh();
         console.log(this.components);
     }
 }

@@ -1,4 +1,6 @@
-class EventListenerHandler{
+import ("./board.js");
+
+class EventListenerHandler extends Board{
     constructor(canvas){
         this.canvas = canvas;
         this.boardWith = 525 

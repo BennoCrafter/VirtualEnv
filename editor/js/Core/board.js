@@ -7,8 +7,6 @@ class Board {
         this.canvas = canvas;
         this.context = this.canvas.getContext("2d");
 
-        this.componentHandler = new ComponentHandler();
-        this.powerBase = new PowerBase(canvas);
         // settings
         this.gridWidth = 30;
         this.gridHeight = 10;
@@ -33,10 +31,16 @@ class Board {
 
 
         this.pixelGrid = [];
-        this.boardListener()
-        this.powerBaseListener()
-        this.setupCanvas(this.lineWidth);
+    }
 
+    init() {
+        this.componentHandler = new ComponentHandler();
+        console.log(this.componentHandler)
+        this.powerBase = new PowerBase(this.canvas);
+
+        this.boardListener();
+        this.powerBaseListener();
+        this.setupCanvas(this.lineWidth);
     }
 
     boardListener(){
@@ -269,6 +273,35 @@ class Board {
             }
         });
         this.drawAllWires();
+    }
+
+    reloadComponent(comp) {
+        var xPos = Math.round(comp.pos[0][0] * this.cellSizeX + comp.pos[1][0] * this.cellSizeX) / 2;
+        var yPos = Math.round((comp.pos[0][1] * this.cellSizeY + comp.pos[1][1] * this.cellSizeY) / 2) - this.cellSizeY;
+
+        // clear component
+        this.context.shadowBlur = 0;
+        this.context.fillStyle = "white";
+        this.context.clearRect(xPos, yPos, this.cellSizeX, this.cellSizeY);
+        // setup image
+        var img = new Image();
+        img.src = comp.imageFromTop;
+        const that = this;
+
+        img.onload = function() {
+            that.updateLED(comp);
+            that.context.drawImage(img, xPos, yPos, that.cellSizeX, that.cellSizeY);
+            that.drawFeets(xPos, yPos, that.cellSizeX, that.cellSizeY, comp.pos);
+        }
+    }
+    getComponent(pos1) {
+        Object.entries(this.components).forEach((comp) => {
+            if ((comp.pos[0][0] / this.cellSizeX == pos[0] && comp.pos[0][1] / this.cellSizeY == pos[1])
+            || (comp.pos[1][0] / this.cellSizeX == pos[0] && comp.pos[1][1] / this.cellSizeY == pos[1])) {
+                return comp;
+            }
+        });
+        return console.error("Cant find Component from Position: " + pos);
     }
 
     // todo doesnt work

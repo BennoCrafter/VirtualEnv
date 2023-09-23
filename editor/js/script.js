@@ -2,15 +2,19 @@
 // aka. Ben lol
 // gigachad move
 // ik
-// das lassen wir so, oder?
+// das lassen wir so, oder? 
+// ja
 import ("./Core/board.js");
 import ("./Core/powerBase.js");
-import ("./Ui/Inspector/inspector.js")
+import ("./Ui/Inspector/inspector.js");
+
+let  board = null;
 
 window.addEventListener("DOMContentLoaded", function () {
     showComponentList();
-    boardCanvas = new Board(document.getElementById("env"));
-    inspector = new Inspector(document.getElementById("inspector"));
+    board = new Board(document.getElementById("env"));
+    board.init();
+    new Inspector(document.getElementById("inspector"));
 });
 
 function showComponentList(isTrue = true) {
