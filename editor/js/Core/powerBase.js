@@ -7,7 +7,7 @@ class PowerBase {
         // this.canvas.addEventListener("click", this.getPin.bind(this));
     
         // setup slots that can be changes due the inspector
-        this.slots = 10;
+        this.defaultPins = 10;
         this.massPins = 5;
         this.pinSize = 14;
         this.pins = [];
@@ -37,7 +37,7 @@ class PowerBase {
         this.context.font = "20px Arial";
 
         // setup the "default" pins
-        for (let i = 0; i < this.slots; i++) {
+        for (let i = 0; i < this.defaultPins; i++) {
             if (i < 14) {
                 this.context.fillText((i + 1).toString(), lastPositionX + this.dx, 30 + this.dy);
                 this.context.strokeRect(lastPositionX + this.dx, pinY + this.dy, this.pinSize, this.pinSize);
@@ -63,7 +63,7 @@ class PowerBase {
         let lastPositionX = 10;
         const pinY = this.height - 55;
 
-        for (let i = 0; i < this.massPins; i++) {
+        for (let i = this.defaultPins; i < this.massPins + this.defaultPins; i++) {
             if (i < 14) {
                 this.context.fillText((i + 1).toString(), lastPositionX + this.dx, this.height - 20 + this.dy);
                 this.context.strokeRect(lastPositionX + this.dx, pinY + this.dy, this.pinSize, this.pinSize);

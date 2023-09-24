@@ -17,6 +17,7 @@
         <div class="sidebar-buttons">
             <button onclick="showComponentList()">Components</button>
             <button onclick="showComponentList(false)">Inpector</button>
+            <button id="header-button" onclick="showComponentList(false, true)">Text-Editor</button>
         </div>
         <div class="list-container" id="component-list" ></div>
         <div id="inspector">
@@ -24,6 +25,10 @@
             <input type="number" id="inspectorPart"> 
             <label for="positionY" id="inspectorPart">Position Y:</label>
             <input type="number" id="inspectorPart"> 
+        </div>
+        <div id="text-editor">
+            <button onclick="run()">></button>
+            <input type="text" id="text-editor-input">
         </div>
     </div>
     <canvas id="env" width="600" height="500"></canvas>

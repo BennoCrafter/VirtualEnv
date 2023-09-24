@@ -1,7 +1,8 @@
+
 import ("../Ui/Components/Scripts/componentHandler.js")
 import ("./powerBase.js");
 
-class Board {
+class Board{
     constructor(canvas) {
         // init
         this.canvas = canvas;
@@ -35,7 +36,6 @@ class Board {
 
     init() {
         this.componentHandler = new ComponentHandler();
-        console.log(this.componentHandler)
         this.powerBase = new PowerBase(this.canvas);
 
         this.boardListener();
@@ -77,9 +77,11 @@ class Board {
                     this.allPlacedComponentsNames.push(this.componentHandler.getCurrentComponent().name + this.allPlacedComponentsNames.length);
                     this.last_index_value = this.allPlacedComponentsNames[this.allPlacedComponentsNames.length-1];
                     
-                    this.jumperWires[this.last_index_value] = { gridPos: this.currentPos[0], pinNumber: this.powerBase.currPin.number, pinPos: this.powerBase.currPin.pos, color: "blue", power: false };
+                    this.jumperWires[this.last_index_value] = { gridPos: this.currentPos[0], pinNumber: this.powerBase.currPin.number, pinPos: this.powerBase.currPin.pos, color: "blue", power: false, type: this.powerBase.currPin.type };
                     // if selected pin is mass pin
-                    this.jumperWires[this.last_index_value].power = true;
+                    if(this.powerBase.currPin.type == "mass-pin"){
+                        this.jumperWires[this.last_index_value].power = true;
+                    }
                     this.drawAllWires()
                     this.updatePower();
                     this.updateComponents();
@@ -183,7 +185,8 @@ class Board {
 
         // 
     }
-    drawWire(startX, startY, endX, endY, lineColor, lineWidth) {    
+    drawWire(startX, startY, endX, endY, lineColor, lineWidth) {   
+        this.context.shadowBlur = 0; 
         this.context.strokeStyle = lineColor;
         this.context.lineWidth = lineWidth;
         this.context.beginPath();
@@ -204,6 +207,7 @@ class Board {
     
     drawFeets(xPos, yPos, cellSizeX, cellSizeY, currentPos) {
         this.context.lineWidth = 3;
+        this.context.shadowBlur = 0;
         // draw Feets Wires
         this.context.beginPath();
         this.context.moveTo(xPos + 6, yPos + cellSizeY);
@@ -302,6 +306,14 @@ class Board {
             }
         });
         return console.error("Cant find Component from Position: " + pos);
+    }
+
+    getJumperWire(pinNumber){
+
+    }
+
+    setJumperWire(pinNumber, power){
+        console.log("lol", this.jumperWires)
     }
 
     // todo doesnt work
