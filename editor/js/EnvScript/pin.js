@@ -1,28 +1,27 @@
-import ("../Core/board.js ")
+import ("../script.js");
 
-export class Pin extends Board{
+export class Pin {
     constructor(pinNumber, power=false){
-        super(document.getElementById("env"));
         this._power = power;
         this.pinNumber = pinNumber;
     }
 
     power(){
         this._power = !this._power;
+        console.log("i ammmm", this._power)
         this.update();
     }
 
     hasPower(){
+
         return this._power;
     }
 
     update(){
         //this.getJumperWire(pinNumber=1);
-        this.setJumperWire(this.pinNumber, this._power)
+        board.setJumperWire(this.pinNumber, this._power)
         //this.getComponent(this.pinNumber);
 
         // refresh screen
-        this.screenRefresh();
-        console.log(this.components);
     }
 }

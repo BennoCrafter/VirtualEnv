@@ -7,7 +7,6 @@
 import ("./Core/board.js");
 import ("./Core/powerBase.js");
 import ("./Ui/Inspector/inspector.js");
-
 let board = null;
 
 window.addEventListener("DOMContentLoaded", function () {
@@ -34,19 +33,4 @@ function showComponentList(isTrue = true, isFalse = false) {
         document.getElementById("inspector").style.display = "block";
         document.getElementById("text-editor").style.display = "none";
     }
-}
-
-function run() {
-    const value = document.getElementById("text-editor-input").value;
-    console.log(value);
-
-    const fs = require("fs");
-
-    fs.writeFile("./EnvScript/run.js", value, (err) => {
-        if (err) {
-          console.error('Error overwriting file: :', err);
-          return;
-        }
-        console.log('File overwrite complete');
-    });
 }

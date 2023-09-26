@@ -32,6 +32,8 @@ class Board{
 
 
         this.pixelGrid = [];
+
+        this.balance = 0
     }
 
     init() {
@@ -136,50 +138,69 @@ class Board{
     debug(){
         console.log("COMPONENTS:")
         console.log(this.components)
+        console.log(this.jumperWires)
         console.log("COMPONENT NAMES:")
         console.log(this.allPlacedComponentsNames)
     }
 
-    updatePower(){
+    updatePower() {
         // reset power positions
-        this.powerPos = []    
-        console.log(this.jumperWires)
+        this.powerPos = [];
         // get all jumper Wires
         Object.entries(this.jumperWires).forEach(([key, jumperWire]) => {
-            if (jumperWire.power == true){
+            if (jumperWire["power"]) {
                 for (let i = 1; i <= this.powerRadius; i++) {
                     this.powerPos.push([jumperWire.gridPos[0], jumperWire.gridPos[1] + i]); // top
                     this.powerPos.push([jumperWire.gridPos[0], jumperWire.gridPos[1] - i]); // down
                     this.powerPos.push([jumperWire.gridPos[0] + i, jumperWire.gridPos[1]]); // right
                     this.powerPos.push([jumperWire.gridPos[0] - i, jumperWire.gridPos[1]]); // left
-                  }
-            }
-          });
-    }
-
-    updateComponents(){
-        Object.entries(this.components).forEach(([name, comp]) => {
-            for(const pPos of this.powerPos){
-                if(pPos[0] == comp.pos[0][0] && pPos[1] == comp.pos[0][1] || pPos[1] == comp.pos[1][0] && pPos[1] == comp.pos[1][1]){
-                    comp.power = true
-                    break
-                }else{
-                    comp.power = false
                 }
+            }
+        });
+
+        console.log("ocococo", this.powerPos)
+    }
+    
+
+    updateComponents() {
+        Object.entries(this.components).forEach(([name, comp]) => {
+            // pPos example: [4,12]
+            let found = false;
+            for (const pPos of this.powerPos) {
+              if (JSON.stringify(comp.pos[0]) === JSON.stringify(pPos)) {
+                found = true;
+                break;
+              }else if (JSON.stringify(comp.pos[0]) === JSON.stringify(pPos)){
+                found = true;
+                break;
+                }
+            }
+            if (found) {
+                comp.power = true;
+            }else{
+                comp.power = false;
             }
         })
         this.screenRefresh()
-        this.debug();
     }
+    
 
     updateLED(comp){
         if (comp.type == "led"){
+            console.log("esui")
             var xPos = Math.round(comp.pos[0][0] * this.cellSizeX + comp.pos[1][0] * this.cellSizeX) / 2;
             var yPos = Math.round((comp.pos[0][1] * this.cellSizeY + comp.pos[1][1] * this.cellSizeY) / 2) - this.cellSizeY;
             if (comp.power == true) {
+                console.log("add")
                 this.updateLightBlur(xPos, yPos);
+                this.balance ++;
+                console.log(this.balance)
             }else{
+                console.log("remove")
                 this.removeLightBlur(xPos, yPos);
+                this.balance -= 1;
+                console.log(this.balance)
+
             }
         }
 
@@ -279,25 +300,6 @@ class Board{
         this.drawAllWires();
     }
 
-    reloadComponent(comp) {
-        var xPos = Math.round(comp.pos[0][0] * this.cellSizeX + comp.pos[1][0] * this.cellSizeX) / 2;
-        var yPos = Math.round((comp.pos[0][1] * this.cellSizeY + comp.pos[1][1] * this.cellSizeY) / 2) - this.cellSizeY;
-
-        // clear component
-        this.context.shadowBlur = 0;
-        this.context.fillStyle = "white";
-        this.context.clearRect(xPos, yPos, this.cellSizeX, this.cellSizeY);
-        // setup image
-        var img = new Image();
-        img.src = comp.imageFromTop;
-        const that = this;
-
-        img.onload = function() {
-            that.updateLED(comp);
-            that.context.drawImage(img, xPos, yPos, that.cellSizeX, that.cellSizeY);
-            that.drawFeets(xPos, yPos, that.cellSizeX, that.cellSizeY, comp.pos);
-        }
-    }
     getComponent(pos1) {
         Object.entries(this.components).forEach((comp) => {
             if ((comp.pos[0][0] / this.cellSizeX == pos[0] && comp.pos[0][1] / this.cellSizeY == pos[1])
@@ -313,7 +315,14 @@ class Board{
     }
 
     setJumperWire(pinNumber, power){
-        console.log("lol", this.jumperWires)
+        Object.entries(this.jumperWires).forEach(([name, jWire]) => {
+            if(jWire["pinNumber"] == pinNumber){
+                jWire["power"] = power; 
+            }
+        });
+        this.updatePower()
+        this.updateComponents()
+        this.debug()
     }
 
     // todo doesnt work
