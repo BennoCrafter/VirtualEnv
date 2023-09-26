@@ -1,4 +1,3 @@
-
 import ("../Ui/Components/Scripts/componentHandler.js")
 import ("./powerBase.js");
 
@@ -7,6 +6,7 @@ class Board{
         // init
         this.canvas = canvas;
         this.context = this.canvas.getContext("2d");
+        this.context.save();
 
         // settings
         this.gridWidth = 30;
@@ -108,8 +108,10 @@ class Board{
 
     setupCanvas(lineWidth) {
         this.context.lineWidth = lineWidth;
+        this.context.shadowBlur = 0;
         var cellSizeX = this.boardWidth / this.gridSize[0];
         var cellSizeY = this.boardHeight / this.gridSize[1];   
+
         for (var x =-0; x <= this.boardWidth; x += cellSizeX) {
             this.context.moveTo(x, 0);
             this.context.lineTo(x, this.boardHeight);
@@ -211,7 +213,6 @@ class Board{
             let xPos = wire.gridPos[0] * this.cellSizeX;
             let yPos = wire.gridPos[1] * this.cellSizeY;
             this.drawWire(xPos, yPos, wire.pinPos.x + this.powerBase.pinSize/2, wire.pinPos.y + this.powerBase.pinSize/2, wire.color, 5);
-
         })    
     }
     
@@ -263,31 +264,31 @@ class Board{
     removeLightBlur(xPos, yPos) {
         this.context.shadowBlur = 0;
         this.context.fillStyle = "white";
-        this.context.clearRect(xPos, yPos, this.cellSizeX, this.cellSizeY);
+        this.context.clearRect(xPos - this.cellSizeX, yPos - this.cellSizeY, this.cellSizeX * 3, this.cellSizeY * 3);
+        this.setupCanvas(this.lineWidth);
     }
 
     screenRefresh() {
-        this.context.shadowBlur = 0; 
-        this.context.fillStyle = "white";
-        this.context.clearRect(0, 0, this.boardWidth, this.boardHeight);
-        this.setupCanvas(this.lineWidth);
-        Object.entries(this.components).forEach(([name, comp]) => {
-            currentTime = new Date;
-            var img = new Image();
-            img.src = comp.imageFromTop;
-            const that = this; 
-
-            img.onload = function () {
-                var xPos = Math.round(comp.pos[0][0] * that.cellSizeX + comp.pos[1][0] * that.cellSizeX) / 2;
-                var yPos = Math.round((comp.pos[0][1] * that.cellSizeY + comp.pos[1][1] * that.cellSizeY) / 2) - that.cellSizeY;
-                
-                that.updateLED(comp);
-                that.context.drawImage(img, xPos, yPos, that.cellSizeX, that.cellSizeY);
-                that.drawFeets(xPos, yPos, that.cellSizeX, that.cellSizeY, comp.pos);
-
-            }
-            co 
-        });
+        if (this.components.length === 0) {
+            this.context.restore();
+            this.setupCanvas(this.lineWidth);
+        }
+        else {
+            Object.entries(this.components).forEach(([name, comp]) => {
+                var img = new Image();
+                img.src = comp.imageFromTop;
+                const that = this; 
+    
+                img.onload = function () {
+                    var xPos = Math.round(comp.pos[0][0] * that.cellSizeX + comp.pos[1][0] * that.cellSizeX) / 2;
+                    var yPos = Math.round((comp.pos[0][1] * that.cellSizeY + comp.pos[1][1] * that.cellSizeY) / 2) - that.cellSizeY;
+                    
+                    that.updateLED(comp);
+                    that.context.drawImage(img, xPos, yPos, that.cellSizeX, that.cellSizeY);
+                    that.drawFeets(xPos, yPos, that.cellSizeX, that.cellSizeY, comp.pos);        
+                }
+            });
+        }
         this.drawAllWires();
     }
 
@@ -347,3 +348,4 @@ class Board{
     // }
 
 }
+
