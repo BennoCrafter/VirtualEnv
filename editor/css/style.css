@@ -29,3 +29,16 @@ body {
 #header {
     margin-left: 94%;
 }
+
+#console {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    width: 190px;
+    border: 1px solid black;
+    overflow: scroll;
+}
+#console::-webkit-scrollbar {
+    display: none;
+}
