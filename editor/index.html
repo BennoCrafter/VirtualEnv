@@ -29,6 +29,7 @@
         <div id="text-editor">
             <button id="run-button">></button>
             <input type="text" id="text-editor-input">
+            <div id="console"></div>
         </div>
     </div>
     <canvas id="env" width="600" height="500"></canvas>
@@ -38,12 +39,13 @@
     <script src="js/Core/eventListenerHandler.js"></script>
     <!-- Ui Scripts -->
     <script src="js/Ui/Components/Scripts/componentHandler.js"></script>
-
     <script src="js/Ui/Inspector/inspector.js"></script>
 
     <!--EnvScript-->
     <script type="module" src="js/EnvScript/pin.js" ></script>
     <script type="module" src="js/EnvScript/example.js"></script>
+    <script type="module" src="js/EnvScript/HelperFunctions/sleep.js"></script>
+    <script type="module" src="js/Core/system.js"></script>
     <!-- Further Scripts -->
     <script src="js/script.js"></script>
 
