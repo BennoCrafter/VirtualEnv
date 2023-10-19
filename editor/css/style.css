@@ -26,6 +26,23 @@ body {
     padding-bottom: 10px;
 }
 
-#header {
-    margin-left: 94%;
+#header-button {
+    position: relative;
+    left: calc(86% + 15px);
+}
+
+.inner-text-editor {
+    margin: 10px;
+}
+
+#text-editor {
+    position: fixed;
+    left: 80%;
+    width: 20%;
+    height: 100%;
+    border: 1px solid #ddd;
+}
+
+#text-editor input {
+    height: 100px;
 }

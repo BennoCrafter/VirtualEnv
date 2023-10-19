@@ -7,6 +7,8 @@
 import ("./Core/board.js");
 import ("./Core/powerBase.js");
 import ("./Ui/Inspector/inspector.js");
+
+let isTextEditorShown = true;
 let board = null;
 
 window.addEventListener("DOMContentLoaded", function () {
@@ -16,21 +18,39 @@ window.addEventListener("DOMContentLoaded", function () {
     new Inspector(document.getElementById("inspector"));
 });
 
+window.addEventListener("keydown", (event) => {
+    if (event.key === "Q" || event.key === "q") {
+        showComponentList();
+    }
+    if (event.key === "W" || event.key === "w") {
+        showComponentList(false);
+    }
+    if (event.altKey) {
+        switchTextEditor();
+    }
+});
+
 function showComponentList(isTrue = true, isFalse = false) {
-    if (isTrue && !isFalse) {
+    if (isTrue) {
         document.getElementById("inspector").style.display = "none";
-        document.getElementById("text-editor").style.display = "none";
         document.getElementById("component-list").style.display = "block";
     }
-    else if (!isTrue && isFalse) {
-        document.getElementById("text-editor").style.display = "block";
-        document.getElementById("inspector").style.display = "none";
+    else  {
+        document.getElementById("inspector").style.display = "block";
         document.getElementById("component-list").style.display = "none";
 
     }
+}
+
+function switchTextEditor() {
+    isTextEditorShown = !isTextEditorShown;
+
+    if (isTextEditorShown) {
+        document.getElementById("text-editor").style.display = "block";
+        document.getElementById("header-button").innerText = "Hide Text-Editor";
+    }
     else {
-        document.getElementById("component-list").style.display = "none";
-        document.getElementById("inspector").style.display = "block";
         document.getElementById("text-editor").style.display = "none";
+        document.getElementById("header-button").innerText = "Show Text-Editor";
     }
 }

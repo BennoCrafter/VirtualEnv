@@ -13,7 +13,6 @@ export class Pin {
     }
 
     hasPower(){
-
         return this._power;
     }
 

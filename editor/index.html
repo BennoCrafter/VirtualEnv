@@ -11,13 +11,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
 </head>
 <body>    
     <div id="sidebar">
         <div class="sidebar-buttons">
             <button onclick="showComponentList()">Components</button>
             <button onclick="showComponentList(false)">Inpector</button>
-            <button id="header-button" onclick="showComponentList(false, true)">Text-Editor</button>
+            <button id="header-button" onclick="switchTextEditor()">Text-Editor</button>
         </div>
         <div class="list-container" id="component-list" ></div>
         <div id="inspector">
@@ -28,7 +29,7 @@
         </div>
         <div id="text-editor">
             <button id="run-button">></button>
-            <input type="text" id="text-editor-input">
+            <textarea id="editor"></textarea>
         </div>
     </div>
     <canvas id="env" width="600" height="500"></canvas>
@@ -46,6 +47,14 @@
     <script type="module" src="js/EnvScript/example.js"></script>
     <!-- Further Scripts -->
     <script src="js/script.js"></script>
+
+    <!--CodeMirror-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+    <script src="js/Ui/TextEditor/textEditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/edit/closebrackets.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/javascript/javascript.min.js"></script>
+
 
 </body>
 </html>
