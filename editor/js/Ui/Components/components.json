@@ -38,7 +38,7 @@
     {
         "image": "js/Ui/Components/Images/Boty.png",
         "name": "Jumper Wire",
-        "type": "jumperWire",
+        "type": "jumper Wire",
         "description": "This is a description of Component 8."
     },
     {

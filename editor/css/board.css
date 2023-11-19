@@ -1,0 +1,11 @@
+#board {
+    display: flex;
+    margin-top: 10%;
+    margin-left: 50%;
+}
+
+.grid-square {
+    border: solid black 1px;
+    width: 40px;
+    height: 40px;
+}

@@ -20,7 +20,7 @@ class ComponentHandler {
         const componentList = document.getElementById('component-list');
 
         // Fetch JSON data
-        fetch('js/Ui/Components/components.json')
+        fetch('js/ui/components/components.json')
             .then(response => response.json())
             .then(components => {
                 components.forEach(component => {
@@ -63,3 +63,5 @@ class ComponentHandler {
             });
     }
 }
+
+new ComponentHandler()

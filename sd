@@ -1,7 +1,0 @@
-        .canvas-container {
-            display: flex;
-        }
-
-        canvas {
-            margin: 0;
-        }

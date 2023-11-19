@@ -4,19 +4,6 @@
     box-sizing: border-box;
 }
 
-body {
-    background-color: white;
-    overflow: hidden;
-}
-
-#env {
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    image-rendering: optimizeSpeed;
-}
-
 .sidebar-buttons, #inspector, #component-list {
     background-color: white;
 }
@@ -24,44 +11,5 @@ body {
 .sidebar-buttons {
     position: relative;
     padding-bottom: 10px;
+    color: aquamarine;
 }
-
-<<<<<<< HEAD
-#header-button {
-    position: relative;
-    left: calc(86% + 15px);
-}
-
-.inner-text-editor {
-    margin: 10px;
-}
-
-#text-editor {
-    position: fixed;
-    left: 80%;
-    width: 20%;
-    height: 100%;
-    border: 1px solid #ddd;
-}
-
-#text-editor input {
-    height: 100px;
-}
-=======
-#header {
-    margin-left: 94%;
-}
-
-#console {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    height: 100px;
-    width: 190px;
-    border: 1px solid black;
-    overflow: scroll;
-}
-#console::-webkit-scrollbar {
-    display: none;
-}
->>>>>>> 6bda27759047924986b89758e7114a843210d030
