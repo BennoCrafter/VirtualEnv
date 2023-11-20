@@ -9,12 +9,15 @@ class Board {
 
     setupGrid() {
         for (let y = 0; y < this.amountPinsY; y++) {
+            // creating a row element for each row on the board
             const newRow = document.createElement("row");
             for (let x = 0; x < this.amountPinsX; x++) {
                 const newPin = document.createElement("div"); 
                 newPin.classList.add("grid-square");
                 newPin.pos = [x, y];
-                addEventListenerToBoardPins(newPin); 
+                addEventListenerToBoardPins(newPin);
+                
+                // appending Pin to row and cofigure Pin in the Cooridnates 
                 newRow.appendChild(newPin);
                 this.container.coordinates.push(null);
             }

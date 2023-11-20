@@ -1,109 +1,103 @@
+
 class Logic {
-  constructor() {
-    // this.pins = []
-    // example pins
-
-    // example board
-    /*
-        {} {} {} {hasPower: false, type: wire, resistance: 0} {} {}
-        {} {} {} {hasPower: false, type: wire, resistance: 0} {} {}
-        {} {} {} {hasPower: false, type: wire, resistance: 0} {} {}
-        {} {} {} {hasPower: false, type: lamp, resistance: 1} {} {}
-        */
+  constructor(x, y) {
     this.pins = [];
-    this.boardSizeX = 6;
-    this.boardSizeY = 6;
-    this.generatePins(6, 6);
-
+    this.boardSizeX = x;
+    this.boardSizeY = y;
+    this.generatePins(x, y);
     this.generateExampleBoard();
     this.updateBoardState();
     console.log(this.pins);
   }
 
   generatePins(sizeX, sizeY) {
-    for (let i = 0; i < sizeX * sizeY; i++) {
-      // for now no resistance
-      this.pins.push({ hasPower: false, isPowerCircle: false, type: null });
+    for (let y = 0; y < sizeY; y++) {
+      for (let x = 0; x < sizeX; x++) {
+        this.pins.push({ hasPower: false, isPowerCircle: false, type: null });
+      }
     }
   }
 
   generateExampleBoard() {
-    // sample power block +
-    this.setPin(12, "powerSupply", true);
-    // sample power block -
-    this.setPin(18, "powerSupply", false, true);
+    this.setPin(0, 0, "powerSupply", true);
+    this.setPin(2, 0, "powerSupply", false, true);
 
-    // simple lamp
-    this.setPin(13, "wire");
-    this.setPin(14, "wire");
-    this.setPin(15, "lamp");
-    this.setPin(16, "wire");
-    this.setPin(17, "wire");
-
-    // board view
-    // ---X---
-    // W--X--W
+    this.setPin(0, 1, "wire");
+    this.setPin(0, 2, "wire");
+    this.setPin(0, 3, "lamp");
+    this.setPin(0, 4, "wire");
+    this.setPin(0, 5, "wire");
+    this.setPin(1, 5, "wire");
+    this.setPin(2, 5, "wire");
+    this.setPin(2, 4, "wire");
+    this.setPin(2, 3, "wire");
+    this.setPin(2, 2, "wire");
+    this.setPin(2, 1, "wire");
   }
 
-  setPin(pinNum, type, powerState = false, isPowerCircle = false) {
-    this.pins[pinNum].hasPower = powerState;
-    this.pins[pinNum].type = type;
-    this.pins[pinNum].isPowerCircle = isPowerCircle;
+  setPin(x, y, type, powerState = false, isPowerCircle = false) {
+    const index = y * this.boardSizeX + x;
+    this.pins[index].hasPower = powerState;
+    this.pins[index].type = type;
+    this.pins[index].isPowerCircle = isPowerCircle;
   }
 
-  updateBoardState(){
-    for (let i = 0; i < 2; i++) {
-        for (let pinNum = 0; pinNum+1 < this.pins.length; pinNum++) {
-            this.checkPower(pinNum)
-            this.checkPowerCircle(pinNum)
+  updateBoardState() {
+    for (let iteration = 0; iteration < this.boardSizeX * this.boardSizeY; iteration++) {
+      for (let y = 0; y < this.boardSizeY; y++) {
+        for (let x = 0; x < this.boardSizeX; x++) {
+          const index = y * this.boardSizeX + x;
+          const currentPin = this.pins[index];
+
+          if (currentPin.hasPower && currentPin.type !== null) {
+            this.propagatePower(x, y);
+          }
+
+          if (currentPin.isPowerCircle && currentPin.type !== null) {
+            this.propagatePowerCircle(x, y);
+          }
+        }
       }
+    }
   }
-}
 
-  checkPower(pinNum) {
-      let currPin = this.pins[pinNum];
-      if (currPin.hasPower && currPin.type!== null) {
-        // set the power of the right pin from current pin to true
-        if (pinNum <= this.pins.length - 1 && this.pins[pinNum++].type!== null) {
-            this.pins[pinNum++].hasPower = true;
+  propagatePower(x, y) {
+    for (let i = -1; i <= 1; i++) {
+      for (let j = -1; j <= 1; j++) {
+        const newX = x + i;
+        const newY = y + j;
+  
+        if (i !== 0 || j !== 0) {
+          if (this.isValidPosition(newX, newY)) {
+            const neighborIndex = newY * this.boardSizeX + newX;
+            this.pins[neighborIndex].hasPower = true;
+          }
         }
-        // set the power of the left pin from current pin to true
-        if (pinNum >= 1 && this.pins[pinNum--].type!== null) {
-          this.pins[pinNum--].hasPower = true;
-        }
-        // set the power of the top pin from current pin to true
-        if (pinNum >= this.boardSizeX && this.pins[pinNum - this.boardSizeX].type!== null) {
-          this.pins[pinNum - this.boardSizeX].hasPower = true;
-        }
-        // set the power of the bottom pin from current pin to true
-        if (pinNum < (this.pins.length - this.boardSizeX) && this.pins[pinNum + this.boardSizeX].type!== null) {
-          this.pins[pinNum + this.boardSizeX].hasPower = true;
-        }
+      }
     }
   }
   
-  checkPowerCircle(pinNum) { 
-      let currPin = this.pins[pinNum];
-      if (currPin.isPowerCircle && currPin.type!== null) {
-        if (pinNum <= this.pins.length - 1 && this.pins[pinNum++].type!== null) {
-            this.pins[pinNum++].isPowerCircle = true;
+  propagatePowerCircle(x, y) {
+    for (let i = -1; i <= 1; i++) {
+      for (let j = -1; j <= 1; j++) {
+        const newX = x + i;
+        const newY = y + j;
+  
+        if (i !== 0 || j !== 0) {
+          if (this.isValidPosition(newX, newY)) {
+            const neighborIndex = newY * this.boardSizeX + newX;
+            this.pins[neighborIndex].isPowerCircle = true;
+          }
         }
-        // set the power of the left pin from current pin to true
-        if (pinNum >= 1 && this.pins[pinNum--].type!== null) {
-          this.pins[pinNum--].isPowerCircle = true;
-        }
-        // set the power of the top pin from current pin to true
-        if (pinNum >= this.boardSizeX && this.pins[pinNum - this.boardSizeX].type!== null) {
-          this.pins[pinNum - this.boardSizeX].isPowerCircle = true;
-        }
-        // set the power of the bottom pin from current pin to true
-        if (pinNum < (this.pins.length - this.boardSizeX) && this.pins[pinNum + this.boardSizeX].type!== null) {
-          this.pins[pinNum + this.boardSizeX].isPowerCircle = true;
-        }
+      }
     }
+  }
+  
+
+  isValidPosition(x, y) {
+    return x >= 0 && x < this.boardSizeX && y >= 0 && y < this.boardSizeY;
   }
 }
 
-// example usage for nodejs
-
-let log = new Logic();
+// example usage for node.js
+let log = new Logic(10, 10);
