@@ -2,6 +2,7 @@ class ComponentHandler {
     constructor() {
         this.currentComp = undefined;
         this.imageFromTop = undefined;
+
         this.renderComponents();
     }
 
@@ -64,4 +65,4 @@ class ComponentHandler {
     }
 }
 
-new ComponentHandler()
+const componentHandler = new ComponentHandler()

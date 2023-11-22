@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
 .sidebar-buttons, #inspector, #component-list {
     background-color: white;
 }

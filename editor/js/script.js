@@ -1,9 +1,7 @@
+let board = null;
+
 window.addEventListener("DOMContentLoaded", function () {
-    const board = new Board(document.getElementById("board"), 10, 10);
+    board = new Board(document.getElementById("board"), 10, 10);
     new PowerBase(document.getElementById("power-base"), 10, 4);
-    board.placeComponent({
-        pos: [0, 1],
-        name: "asd"
-    })
-    board.getComponent(0, 1)
+    console.log(board.getComponent(0, 1));
 });
