@@ -7,7 +7,7 @@ class PowerBase {
         this.setupPins();
     }
 
-    setupPins() {
+    setupPins() { 
         let index = 0;
         for (let currentPinType = "plus-pin"; index < 2; currentPinType = "ground-pin") {
             for (let pin = 0; pin < this.amountPins[index]; pin++) {
@@ -18,10 +18,12 @@ class PowerBase {
                 newPin.innerHTML = `<br>${pin + 1}`;
     
                 this.container.appendChild(newPin);
-                this.container.pins[index].push(newPin);
+                this.container.pins[index].push({ container: newPin, type: null });
             }
             index++;
         }
+
+        console.log(this.container.pins);
     }
     
     setupPinStyle(pin, index) {
@@ -37,5 +39,11 @@ class PowerBase {
             pos: pos,
             type: type
         }
+    }
+
+    placeWire(wire) {
+        const typeIndex = {"plus-pin": 0, "ground-pin": 1};
+        this.container.pins[typeIndex[wire.pos[1].props.type]][wire.pos[1].props.pos].type = wire;
+        console.log(this.container.pins);
     }
 }
