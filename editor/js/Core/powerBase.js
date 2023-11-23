@@ -7,7 +7,7 @@ class PowerBase {
         this.setupPins();
     }
 
-    setupPins() { 
+    setupPins() { // guck dc, hab btw git commit gemacht
         let index = 0;
         for (let currentPinType = "plus-pin"; index < 2; currentPinType = "ground-pin") {
             for (let pin = 0; pin < this.amountPins[index]; pin++) {

@@ -5,7 +5,7 @@ class Logic {
     this.boardSizeX = x;
     this.boardSizeY = y;
     this.generatePins(x, y);
-    this.generateExampleBoard();
+    //this.generateExampleBoard();
     this.updateBoardState();
     console.log(this.pins);
   }
