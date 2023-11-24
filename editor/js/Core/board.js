@@ -12,7 +12,7 @@ class Board {
         for (let y = 0; y < this.amountPinsY; y++) {
             // creating a row element for each row on the board
             const newRow = document.createElement("row");
-            this.container.coordinates.push([{ hasPower: false, isPowerCircle: false, type: null }]);
+            this.container.coordinates.push([{ hasPower: false, hasGroundPower: false, type: null }]);
             for (let x = 0; x < this.amountPinsX; x++) {
                 const newPin = document.createElement("div"); 
                 newPin.classList.add("grid-square");
@@ -41,12 +41,17 @@ class Board {
         this.container.coordinates[comp.pos[0][0]][comp.pos[0][1]].type = comp;
         this.container.coordinates[comp.pos[1][0]][comp.pos[1][1]].type = comp;
         this.updatePower();
+    }
+    
+    updatePower() {
+        this.updatePowerPin();
+        for (const comp of this.components) {
+            this.updatePowerCircleComp(comp);
+        }
 
-        console.log(this.container.coordinates);
     }
 
-    updatePower() {
-        console.log(this.components)
+    updatePowerPin() {
         for (const comp of this.components) {
             if (comp.type === "Cable" || comp.type === "Jumper Wire") {
                 if (comp.pos[1].props.type == "plus-pin") {
@@ -67,9 +72,13 @@ class Board {
                 }
             }
         }
-
-        console.log(this.container.coordinates)
     }
 
+    updatePowerCircleComp(comp) {
+        if (comp && (comp.type != "Cable" && comp.type != "Jumper Wire") &&
+            (this.container.coordinates[comp.pos[1][0]][comp.pos[1][1]].hasPower && this.container.coordinates[comp.pos[0][0]][comp.pos[0][1]].hasGroundPower)) {
+            comp.hasPowerCircle = true;
+        }
+    }
 
 }

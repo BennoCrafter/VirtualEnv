@@ -3,6 +3,7 @@ class Component {
         this.id = board.components.length;
         this.pos = pos;
         this.type = type;
+        this.hasPowerCircle = false;
         this.build();
     }
 
@@ -23,6 +24,7 @@ class Wire {
 
     build() {
         board.components.push(this);
+        console.log("asdasdasdasdaiuhgsdgasdhgahgsdhg: ", board.components)
         board.placeWire(this);
         return this;
     }

@@ -7,7 +7,7 @@ class PowerBase {
         this.setupPins();
     }
 
-    setupPins() { // guck dc, hab btw git commit gemacht
+    setupPins() {
         let index = 0;
         for (let currentPinType = "plus-pin"; index < 2; currentPinType = "ground-pin") {
             for (let pin = 0; pin < this.amountPins[index]; pin++) {
@@ -44,6 +44,5 @@ class PowerBase {
     placeWire(wire) {
         const typeIndex = {"plus-pin": 0, "ground-pin": 1};
         this.container.pins[typeIndex[wire.pos[1].props.type]][wire.pos[1].props.pos].type = wire;
-        console.log(this.container.pins);
     }
 }
