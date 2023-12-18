@@ -1,8 +1,6 @@
 class ComponentHandler {
     constructor() {
         this.currentComp = undefined;
-        this.imageFromTop = undefined;
-
         this.renderComponents();
     }
 
@@ -14,9 +12,6 @@ class ComponentHandler {
         return this.currentComp;
     }
 
-    getImageFromTop(){
-        return this.imageFromTop;
-    }
     renderComponents() {
         const componentList = document.getElementById('component-list');
 
@@ -51,13 +46,6 @@ class ComponentHandler {
                         }, 200);
                     });
                 });
-
-                // Add extra blank components for scrolling (you can adjust this part as needed)
-                for (let i = 0; i < 5; i++) {
-                    const blankComponent = document.createElement('div');
-                    blankComponent.classList.add('blank-component');
-                    componentList.appendChild(blankComponent);
-                }
             })
             .catch(error => {
                 console.error('Error fetching data:', error);

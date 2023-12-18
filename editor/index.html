@@ -14,21 +14,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
-<body>    
+<body>
     <div id="sidebar">
         <div class="sidebar-buttons">
             <button onclick="showComponentList()">Components</button>
         </div>
         <div class="list-container" id="component-list" ></div>
     </div>
-    <div id="board"></div>
+    <canvas id="canvas-overlay" width="700px" height="500px"></canvas>
+    <div id="board"></div> 
     <div id="power-base" style="width: 450px; height: 200px;"></div>
 
     <!--Main Script-->
     <script src="js/script.js"></script>
     <!--Core Scripts-->
     <script src="js/Core/board.js"></script>
-    <script src="js/Core/Handlers/eventListenerHandler.js"></script>
+    <script src="js/Core/Handlers/powerHandler.js"></script>
     <script src="js/Core/powerBase.js"></script>
     <script src="js/Core/logic.js"></script>
 
@@ -37,6 +38,10 @@
     <script src="js/Ui/Components/Scripts/componentHandler.js"></script>
     <script src="js/Ui/Components/Scripts/component.js"></script>
 
+    <!--EnvScript Scrips-->
+    <script src="js/EnvScript/pin.js"></script>
+
+    <script id="user-script"></script>
     <script>
         function showComponentList(isTrue = true, isFalse = false) {
     if (isTrue) {

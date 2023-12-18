@@ -1,10 +1,14 @@
 class PowerBase {
-    constructor (container, amountPlusPins, amountGrondPins) {
+    constructor (container, amountPlusPins, amountGrondPins, offsetBoard) {
         this.container = container;
         this.container.pins = [[], []];
         this.amountPins = [amountPlusPins, amountGrondPins]
+        this.offsetBoard = offsetBoard;
         this.cellSize = 15;
         this.setupPins();
+        
+        // Setup offset
+        this.container.style.marginTop = `${this.offsetBoard}px`;
     }
 
     setupPins() {
@@ -44,5 +48,13 @@ class PowerBase {
     placeWire(wire) {
         const typeIndex = {"plus-pin": 0, "ground-pin": 1};
         this.container.pins[typeIndex[wire.pos[1].props.type]][wire.pos[1].props.pos].type = wire;
+    }
+
+    convertPinPosToPx(pin) {
+        console.log(this.container.getElementsByTagName(pin.props.type))
+        const offsetWidth = this.container.getElementsByTagName(pin.props.type)[pin.props.pos].getBoundingClientRect().left - board.container.getBoundingClientRect().left;
+        const offsetHeight = this.container.getElementsByTagName(pin.props.type)[pin.props.pos].getBoundingClientRect().top - board.container.getBoundingClientRect().top;
+        console.log("I love Java: ", [offsetWidth, offsetHeight], board.container.getBoundingClientRect().top)
+        return [offsetWidth, offsetHeight];
     }
 }

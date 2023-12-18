@@ -7,51 +7,51 @@
         "imageFromTop": "js/Ui/Components/Images/LEDTopView.png"
     },
     {
-        "image": "js/Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/redLED.png",
         "name": "Resistor",
         "description": "This is a description of Component 2."
     },
     {
-        "image": "js/Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/redLED.png",
         "name":  "Button",
         "description": "This is a description of Component 3."
     },
     {
-        "image": "js/Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/redLED.png",
         "name": "Buzzer",
         "description": "This is a description of Component 4."
     },
     {
-        "image": "js/Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/redLED.png",
         "name": "Light Sensor",
         "description": "This is a description of Component 5."
     },
     {
-        "image": "js/Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/redLED.png",
         "name": "Variable Resistor",
         "description": "This is a description of Component 6."
     },    {
-        "image": "js/Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/redLED.png",
         "name": "Cable",
         "description": "This is a description of Component 7."
     },
     {
-        "image": "js/Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/redLED.png",
         "name": "Jumper Wire",
         "type": "jumper Wire",
         "description": "This is a description of Component 8."
     },
     {
-        "image": "js/Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/redLED.png",
         "name": "Component 9",
         "description": "This is a description of Component 9."
     },    {
-        "image": "js/Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/redLED.png",
         "name": "Component 10",
         "description": "This is a description of Component 10."
     },
     {
-        "image": "js/Ui/Components/Images/Boty.png",
+        "image": "js/Ui/Components/Images/redLED.png",
         "name": "Component 11",
         "description": "This is a description of Component 11."
     }

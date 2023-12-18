@@ -1,6 +1,9 @@
 class Board {
-    constructor(container, amountPinsX, amountPinsY) {
+    constructor(container, overlayCanvas, amountPinsX, amountPinsY) {
         this.container = container;
+        this.overlayCanvas = overlayCanvas;
+        this.overlayContext = this.overlayCanvas.getContext("2d");
+
         this.container.coordinates = [];
         this.components = [];
         this.amountPinsX = amountPinsX;
@@ -32,14 +35,14 @@ class Board {
     }
 
     placeWire(wire) {
-        this.container.coordinates[wire.pos[0][0]][wire.pos[0][1]].type = wire;
+        this.container.coordinates[wire.pos[0][1]][wire.pos[0][0]].type = wire;
         powerBase.placeWire(wire);
         this.updatePower();
     }
 
     placeComponent(comp) {
-        this.container.coordinates[comp.pos[0][0]][comp.pos[0][1]].type = comp;
-        this.container.coordinates[comp.pos[1][0]][comp.pos[1][1]].type = comp;
+        this.container.coordinates[comp.pos[0][1]][comp.pos[0][0]].type = comp;
+        this.container.coordinates[comp.pos[1][1]][comp.pos[1][0]].type = comp;
         this.updatePower();
     }
     
@@ -76,7 +79,7 @@ class Board {
 
     updatePowerCircleComp(comp) {
         if (comp && (comp.type != "Cable" && comp.type != "Jumper Wire") &&
-            (this.container.coordinates[comp.pos[1][0]][comp.pos[1][1]].hasPower && this.container.coordinates[comp.pos[0][0]][comp.pos[0][1]].hasGroundPower)) {
+            (this.container.coordinates[comp.pos[1][1]][comp.pos[1][0]].hasPower && this.container.coordinates[comp.pos[0][1]][comp.pos[0][0]].hasGroundPower)) {
             comp.hasPowerCircle = true;
         }
     }

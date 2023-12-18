@@ -1,11 +1,11 @@
 #board {
     display: flex;
     margin-top: 10%;
-    margin-left: 50%;
+    margin-left: calc(50% - (25px * 4.5));
 }
 
 .grid-square {
     border: solid black 1px;
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
 }
