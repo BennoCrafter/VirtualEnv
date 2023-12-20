@@ -56,7 +56,7 @@ class Wire {
         this.id = board.components.length;
         this.pos = pos;
         this.type = type;
-        this.color;
+        this.color = "blue";
         this.build();
     }
 
@@ -69,14 +69,13 @@ class Wire {
     // IMPORTANT: update() only draws the cabels again and dosent delete them!
     update() {
         console.log("got here: ", this)
-        // TODO: Fix drawing Wires
         board.overlayContext.beginPath();
-        board.overlayContext.moveTo(this.pos[0][1] * 25 + 0.5, this.pos[0][0] * 25 + 0.5);
+        board.overlayContext.moveTo(this.pos[0][1] * 25, this.pos[0][0] * 25);
         board.overlayContext.lineTo(powerBase.convertPinPosToPx(this.pos[1])[0], powerBase.convertPinPosToPx(this.pos[1])[1])
         board.overlayContext.closePath();
         
         board.overlayContext.lineWidth = 5; 
-        board.overlayContext.strokeStyle = "grey";
+        board.overlayContext.strokeStyle = this.color;
         board.overlayContext.stroke();
     }
 }

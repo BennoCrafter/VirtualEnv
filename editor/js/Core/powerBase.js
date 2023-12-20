@@ -18,7 +18,7 @@ class PowerBase {
                 const newPin = document.createElement(currentPinType);
                 this.setupPinProps(newPin, currentPinType, pin);
                 this.setupPinStyle(newPin, index);
-                addEventListenerToPowerBasePins(newPin);
+                addEventListenerToPins(newPin);
                 newPin.innerHTML = `<br>${pin + 1}`;
     
                 this.container.appendChild(newPin);
@@ -51,10 +51,8 @@ class PowerBase {
     }
 
     convertPinPosToPx(pin) {
-        console.log(this.container.getElementsByTagName(pin.props.type))
         const offsetWidth = this.container.getElementsByTagName(pin.props.type)[pin.props.pos].getBoundingClientRect().left - board.container.getBoundingClientRect().left;
         const offsetHeight = this.container.getElementsByTagName(pin.props.type)[pin.props.pos].getBoundingClientRect().top - board.container.getBoundingClientRect().top;
-        console.log("I love Java: ", [offsetWidth, offsetHeight], board.container.getBoundingClientRect().top)
         return [offsetWidth, offsetHeight];
     }
 }

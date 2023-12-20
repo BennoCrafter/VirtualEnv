@@ -1,23 +1,25 @@
 let clickedPos = [];
 
-function addEventListenerToBoardPins(pin) {
+function addEventListenerToPins(pin) {
     pin.addEventListener("click", (event) => {
+        updateSelectedPin(pin);
         clickedPos.push(event.target);
-        console.log(clickedPos);
         checkPinPlace();
     });
 } 
 
-function addEventListenerToPowerBasePins(pin) {
-    pin.addEventListener("click", (event) => {
-        clickedPos.push(event.target);
-        checkPinPlace();
-    });
+function updateSelectedPin(pin) {
+    if (selectedPin) {
+        selectedPin.style.borderColor = "black";
+        selectedPin.style.borderWidth = "1px";
+    }
+    selectedPin = pin;
+    selectedPin.style.borderColor = "blue";
+    selectedPin.style.borderWidth = "2px";
 }
 
 function checkPinPlace() {
-    console.log("U are not a js: ", clickedPos[clickedPos.length - 1], clickedPos[clickedPos.length - 2]);
-    console.log(clickedPos.length >= 2)
+    // checking for the last two elements thats clicked and placeing components
     if (clickedPos.length >= 2 && componentHandler.currentComp && (componentHandler.currentComp.name == "Cable" || componentHandler.currentComp.name == "Jumper Wire") && 
     ((clickedPos[clickedPos.length - 1].classList.contains("grid-square") && clickedPos[clickedPos.length - 2].classList.contains("power-base-pin")) || 
     (clickedPos[clickedPos.length - 1].classList.contains("power-base-pin") && clickedPos[clickedPos.length - 2].classList.contains("grid-square")))) {
@@ -26,6 +28,7 @@ function checkPinPlace() {
     else if (clickedPos.length >= 2 && componentHandler.currentComp && clickedPos[clickedPos.length - 1].classList.contains("grid-square") && clickedPos[clickedPos.length - 2].classList.contains("grid-square")) {
         new Component([clickedPos[clickedPos.length - 1].pos, clickedPos[clickedPos.length - 2].pos], componentHandler.getCurrentComponent().name);
     }
+    // clear the array with the last two elements that were clicked in it
     if (clickedPos.length == 2) {
         clickedPos = [];
     }

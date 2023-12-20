@@ -17,9 +17,11 @@
 <body>
     <div id="sidebar">
         <div class="sidebar-buttons">
-            <button onclick="showComponentList()">Components</button>
+            <button>Components</button>
         </div>
-        <div class="list-container" id="component-list" ></div>
+        <div class="list-container" id="component-list"></div>
+        <div id="inspector"></div>
+        <div id="text-editor"></div>
     </div>
     <canvas id="canvas-overlay" width="700px" height="500px"></canvas>
     <div id="board"></div> 
@@ -29,7 +31,7 @@
     <script src="js/script.js"></script>
     <!--Core Scripts-->
     <script src="js/Core/board.js"></script>
-    <script src="js/Core/Handlers/powerHandler.js"></script>
+    <script src="js/Core/Handlers/pinManager.js"></script>
     <script src="js/Core/powerBase.js"></script>
     <script src="js/Core/logic.js"></script>
 
@@ -37,23 +39,11 @@
     <!--Ui Scripts -->
     <script src="js/Ui/Components/Scripts/componentHandler.js"></script>
     <script src="js/Ui/Components/Scripts/component.js"></script>
+    <script src="js/Ui/Inspector/inspector.js"></script>
 
     <!--EnvScript Scrips-->
     <script src="js/EnvScript/pin.js"></script>
 
     <script id="user-script"></script>
-    <script>
-        function showComponentList(isTrue = true, isFalse = false) {
-    if (isTrue) {
-        document.getElementById("inspector").style.display = "none";
-        document.getElementById("component-list").style.display = "block";
-    }
-    else  {
-        document.getElementById("inspector").style.display = "block";
-        document.getElementById("component-list").style.display = "none";
-
-    }   
-}
-    </script>
 </body>
 </html>
