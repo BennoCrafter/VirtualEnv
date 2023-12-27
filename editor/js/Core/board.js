@@ -21,7 +21,7 @@ class Board {
                 newPin.pos = [x, y];
                 addEventListenerToPins(newPin);
                 
-                // appending Pin to row and cofigure Pin in the Cooridnates 
+                // appending Pin to row
                 newRow.appendChild(newPin);
             }
             this.container.appendChild(newRow);
@@ -66,7 +66,7 @@ class Board {
     // Updates ground- and pluspower for each grid on the board
     updatePowerPin() {
         for (const comp of this.components) {
-            if (comp.type === "Cable" || comp.type === "Jumper Wire") {
+            if (comp.type === "Cable" || comp.type === "Jumper Wire" && comp) {
                 if (comp.pos[1].props.type == "plus-pin") {
                     for (let xy = -2; xy <= 2; xy++) {
                         try {
@@ -87,6 +87,7 @@ class Board {
         }
     }
 
+    // Checking if a comp is in a PowerCircle
     updatePowerCircleComp(comp) {
         if (comp && (comp.type != "Cable" && comp.type != "Jumper Wire") &&
             (this.getComponent(comp.pos[1][0], comp.pos[1][1]).hasPower && this.getComponent(comp.pos[0][0], comp.pos[0][1]).hasGroundPower)) {

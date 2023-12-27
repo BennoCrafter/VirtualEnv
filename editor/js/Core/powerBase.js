@@ -51,8 +51,9 @@ class PowerBase {
     }
 
     convertPinPosToPx(pin) {
-        const offsetWidth = this.container.getElementsByTagName(pin.props.type)[pin.props.pos].getBoundingClientRect().left - board.container.getBoundingClientRect().left;
-        const offsetHeight = this.container.getElementsByTagName(pin.props.type)[pin.props.pos].getBoundingClientRect().top - board.container.getBoundingClientRect().top;
+        const pinContainer = this.container.getElementsByTagName(pin.props.type)[pin.props.pos]
+        const offsetWidth = pinContainer.getBoundingClientRect().left - board.container.getBoundingClientRect().left;
+        const offsetHeight = pinContainer.getBoundingClientRect().top - board.container.getBoundingClientRect().top;
         return [offsetWidth, offsetHeight];
     }
 }

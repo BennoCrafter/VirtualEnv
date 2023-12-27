@@ -4,6 +4,9 @@ class Component {
         this.pos = pos;
         this.type = type;
         this.hasPowerCircle = false;
+        this.props = {
+            color: "red",
+        }
         this.build();
     }
 
@@ -11,7 +14,6 @@ class Component {
         board.components.push(this);
         board.placeComponent(this);
         this.update();
-        console.log("asdasdasdasdaiuhgsdgasdhgahgsdhg: ", board.components, board.container.coordinates);
     }
 
     // IMPORTANT: update() only draws the image and the feets again and dosent delete them!
@@ -20,11 +22,9 @@ class Component {
         compImage.src = componentHandler.getCurrentComponent().imageFromTop;
         const that = this;
 
-        console.log(powerBase.container.height)
         compImage.onload = function () {
             var xPos = Math.round((that.pos[0][1] + that.pos[1][1]) * 25) / 2;
             var yPos = Math.round(((that.pos[0][0] + that.pos[1][0]) * 25) / 2) - 25;
-            console.log("Nuernberg: ", xPos, yPos, that, compImage);
 
             that.__drawFeets(xPos, yPos);
             board.overlayContext.drawImage(compImage, xPos, yPos, 25, 25);
@@ -40,7 +40,6 @@ class Component {
         for (let i = 0; i < 2; i++) {
             board.overlayContext.beginPath();
             board.overlayContext.moveTo(this.pos[i][1] * values.cellSize + values.offsetBottom[i], this.pos[i][0] * values.cellSize + values.cellSize);
-            console.log("I hate js: ", xPos, yPos)
             board.overlayContext.lineTo(xPos + values.offsetTop[i], yPos + values.cellSize);
             board.overlayContext.closePath();
     
@@ -56,7 +55,10 @@ class Wire {
         this.id = board.components.length;
         this.pos = pos;
         this.type = type;
-        this.color = "blue";
+        this.props = {
+            color: "blue",
+            test: "undefined"
+        }
         this.build();
     }
 
@@ -75,7 +77,7 @@ class Wire {
         board.overlayContext.closePath();
         
         board.overlayContext.lineWidth = 5; 
-        board.overlayContext.strokeStyle = this.color;
+        board.overlayContext.strokeStyle = this.props.color;
         board.overlayContext.stroke();
     }
 }

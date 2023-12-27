@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/board.css">
     <link rel="stylesheet" type="text/css" href="css/powerBase.css">
     <link rel="stylesheet" type="text/css" href="css/components-style.css">
+    <link rel="stylesheet" href="css/inspector.css">
 
     <!--Google Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,12 +17,16 @@
 </head>
 <body>
     <div id="sidebar">
-        <div class="sidebar-buttons">
+        <div id="sidebar-buttons">
             <button>Components</button>
+            <button>Inspector</button>
+            <button>Text Editor</button>
         </div>
-        <div class="list-container" id="component-list"></div>
-        <div id="inspector"></div>
-        <div id="text-editor"></div>
+        <div id="sidebar-elements">
+            <div class="list-container" id="component-list"></div>
+            <div id="inspector">I love chicken</div>
+            <div id="text-editor">I hate chicken</div>
+        </div>
     </div>
     <canvas id="canvas-overlay" width="700px" height="500px"></canvas>
     <div id="board"></div> 
@@ -39,7 +44,9 @@
     <!--Ui Scripts -->
     <script src="js/Ui/Components/Scripts/componentHandler.js"></script>
     <script src="js/Ui/Components/Scripts/component.js"></script>
-    <script src="js/Ui/Inspector/inspector.js"></script>
+    <!-- Sidebar Scripts -->
+    <script src="js/Ui/Sidebar/sidebar.js"></script>
+    <script src="js/Ui/Sidebar/inspector.js"></script>
 
     <!--EnvScript Scrips-->
     <script src="js/EnvScript/pin.js"></script>

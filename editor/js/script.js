@@ -1,6 +1,5 @@
 let board = null;
 let powerBase = null;
-let selectedPin = null;
 
 window.addEventListener("DOMContentLoaded", function () {
     // creating the board and the powerbase
