@@ -102,6 +102,15 @@ class Board {
                     }catch(err) { /* ignore */ }
                 }
             }
+            else {
+                for (let xy = -2; xy <= 2; xy++) {
+                    try {
+                        console.log("ASd: ", wire.props.strenght)
+                        this.getComponent(wire.pos[0][0] + xy, wire.pos[0][1]).powerStrenght = 0;
+                        this.getComponent(wire.pos[0][0], wire.pos[0][1] + xy).powerStrenght = 0;
+                    }catch(err) { /* ignore */ }
+                }
+            }
         }
     }
 

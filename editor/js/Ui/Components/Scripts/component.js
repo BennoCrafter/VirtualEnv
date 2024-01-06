@@ -7,7 +7,7 @@ class Component {
         this.imageFromTop = componentHandler.getCurrentComponent().imageFromTop;
         this.props = {
             color: "red",
-            layers: 5
+            size: 15
         }
         this.build();
     }
@@ -28,10 +28,13 @@ class Component {
             var xPos = Math.round((that.pos[0][0] + that.pos[1][0]) * 25) / 2;
             var yPos = Math.round(((that.pos[0][1] + that.pos[1][1]) * 25) / 2) - 25;
             that.__drawFeets(xPos, yPos);
-            if (that.hasPowerCircle && that.props.layers > 0) {
+            if (that.hasPowerCircle && that.props.size > 0 && 
+                    board.getComponent(that.pos[0][0], that.pos[0][1]).powerStrenght - 
+                    board.getComponent(that.pos[0][0], that.pos[0][1]).resistance > 0) {
                 board.bufferContext.shadowColor = that.props.color;  
-                board.bufferContext.shadowBlur = board.getComponent(that.pos[0][0], that.pos[0][1]).powerStrenght - board.getComponent(that.pos[0][0], that.pos[0][1]).resistance;
-                for (let i = 0; i < that.props.layers; i++) {
+                board.bufferContext.shadowBlur = that.props.size;
+                for (let i = 0; i < board.getComponent(that.pos[0][0], that.pos[0][1]).powerStrenght - 
+                board.getComponent(that.pos[0][0], that.pos[0][1]).resistance; i++) {
                     board.bufferContext.drawImage(compImage, xPos, yPos, 25, 25);
                 }
                 board.bufferContext.shadowColor = 'transparent';
@@ -81,7 +84,7 @@ class Wire {
         }
         this.props = {
             color: "blue",
-            strenght: 12,
+            strenght: 5,
         }
         this.build();
     }
