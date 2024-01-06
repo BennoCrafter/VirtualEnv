@@ -7,9 +7,11 @@
         "imageFromTop": "js/Ui/Components/Images/LEDTopView.png"
     },
     {
-        "image": "js/Ui/Components/Images/redLED.png",
+        "image": "js/Ui/Components/Images/resistor.png",
         "name": "Resistor",
-        "description": "This is a description of Component 2."
+        "type": "resistor",
+        "description": "This is a description of Component 2.",
+        "imageFromTop": "js/Ui/Components/Images/resistorTopView.png"
     },
     {
         "image": "js/Ui/Components/Images/redLED.png",
@@ -30,7 +32,8 @@
         "image": "js/Ui/Components/Images/redLED.png",
         "name": "Variable Resistor",
         "description": "This is a description of Component 6."
-    },    {
+    },    
+    {
         "image": "js/Ui/Components/Images/redLED.png",
         "name": "Cable",
         "description": "This is a description of Component 7."
@@ -45,7 +48,8 @@
         "image": "js/Ui/Components/Images/redLED.png",
         "name": "Component 9",
         "description": "This is a description of Component 9."
-    },    {
+    },    
+    {
         "image": "js/Ui/Components/Images/redLED.png",
         "name": "Component 10",
         "description": "This is a description of Component 10."

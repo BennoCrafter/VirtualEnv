@@ -20,14 +20,13 @@ class PowerBase {
                 this.setupPinStyle(newPin, index);
                 addEventListenerToPins(newPin);
                 newPin.innerHTML = `<br>${pin + 1}`;
-    
+                
                 this.container.appendChild(newPin);
                 this.container.pins[index].push({ container: newPin, type: null });
+                newPin.coordinate = this.container.pins[index][pin];
             }
             index++;
         }
-
-        console.log(this.container.pins);
     }
     
     setupPinStyle(pin, index) {

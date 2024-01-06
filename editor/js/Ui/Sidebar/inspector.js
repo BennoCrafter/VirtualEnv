@@ -16,10 +16,7 @@ function updateInspector() {
         pinCord = powerBase.container.pins[1][selectedPin.props.pos];
     }
 
-    console.log(selectedPin);
     if (pinCord.type) {
-        console.log(pinCord.type.props)
-        
         let index = 0;
         for (const name of Object.keys(pinCord.type.props)) {
             const newInput = document.createElement("input");
@@ -36,9 +33,10 @@ function updateInspector() {
 function addEventListenerToInputs(input, pinCord, index) {
     input.addEventListener("keyup", (event) => {
         if (event.key === "Enter") {
-            input.innerHTML = '';
             pinCord.type.props[getObjValueFromIndex(pinCord.type.props, index)] = input.value;
-            pinCord.type.update();
+            board.updatePower();
+            board.screenRefresh();
+            input.value = '';
         }
     })
 }
@@ -47,4 +45,3 @@ function getObjValueFromIndex(obj, index) {
     var keys = Object.keys(obj)
     return keys[index];
 }
-  

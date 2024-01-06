@@ -8,12 +8,22 @@
     <link rel="stylesheet" type="text/css" href="css/board.css">
     <link rel="stylesheet" type="text/css" href="css/powerBase.css">
     <link rel="stylesheet" type="text/css" href="css/components-style.css">
-    <link rel="stylesheet" href="css/inspector.css">
+    <link rel="stylesheet" href="css/sidebar.css">
 
     <!--Google Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Codemirror -->
+    <link rel="stylesheet" href="codemirror-5.65.16/lib/codemirror.css">
+    <link rel="stylesheet" href="codemirror-5.65.16/theme/material.css">
+    <link rel="stylesheet" href="codemirror-5.65.16/addon/hint/show-hint.css">
+    <script src="codemirror-5.65.16/lib/codemirror.js"></script>
+    <script src="codemirror-5.65.16/mode/javascript/javascript.js"></script>
+    <script src="codemirror-5.65.16/addon/hint/show-hint.js"></script>
+    <script src="codemirror-5.65.16/addon/hint/javascript-hint.js"></script>
+    <script src="codemirror-5.65.16/addon/edit/closebrackets.js"></script>
 </head>
 <body>
     <div id="sidebar">
@@ -24,10 +34,14 @@
         </div>
         <div id="sidebar-elements">
             <div class="list-container" id="component-list"></div>
-            <div id="inspector">I love chicken</div>
-            <div id="text-editor">I hate chicken</div>
+            <div id="inspector"></div>
+            <div id="text-editor">
+                <button onclick="eval(cm.getValue())">Run</button>
+                <textarea id="editor"></textarea>
+            </div>
         </div>
     </div>
+    <canvas id="buffer-canvas" style="opacity: 0;" width="700px" height="500px"></canvas>
     <canvas id="canvas-overlay" width="700px" height="500px"></canvas>
     <div id="board"></div> 
     <div id="power-base" style="width: 450px; height: 200px;"></div>
@@ -40,17 +54,17 @@
     <script src="js/Core/powerBase.js"></script>
     <script src="js/Core/logic.js"></script>
 
-
     <!--Ui Scripts -->
     <script src="js/Ui/Components/Scripts/componentHandler.js"></script>
     <script src="js/Ui/Components/Scripts/component.js"></script>
+    
     <!-- Sidebar Scripts -->
     <script src="js/Ui/Sidebar/sidebar.js"></script>
     <script src="js/Ui/Sidebar/inspector.js"></script>
-
+    <script src="js/Ui/Sidebar/textEditor.js"></script>
+    
     <!--EnvScript Scrips-->
     <script src="js/EnvScript/pin.js"></script>
-
-    <script id="user-script"></script>
+    <script src="js/EnvScript/defs.js"></script>
 </body>
 </html>

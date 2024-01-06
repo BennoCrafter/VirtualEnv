@@ -24,40 +24,41 @@ function updateSelectedPin(pin) {
 
 function checkPinPlace() {
   // checking for the last two elements thats clicked and placeing components
-  if (
-    clickedPos.length >= 2 &&
-    componentHandler.currentComp &&
-    (componentHandler.currentComp.name == "Cable" ||
-      componentHandler.currentComp.name == "Jumper Wire") &&
-    ((clickedPos[clickedPos.length - 1].classList.contains("grid-square") &&
-      clickedPos[clickedPos.length - 2].classList.contains("power-base-pin")) ||
-      (clickedPos[clickedPos.length - 1].classList.contains("power-base-pin") &&
-        clickedPos[clickedPos.length - 2].classList.contains("grid-square")))
-  ) {
-    new Wire(
-      [
-        clickedPos
-          .reverse()
-          .find((element) => element.classList.contains("grid-square")).pos,
-        clickedPos
-          .reverse()
-          .find((element) => element.classList.contains("power-base-pin")),
-      ],
-      componentHandler.currentComp.name
-    );
-  } else if (
-    clickedPos.length >= 2 &&
-    componentHandler.currentComp &&
-    clickedPos[clickedPos.length - 1].classList.contains("grid-square") &&
-    clickedPos[clickedPos.length - 2].classList.contains("grid-square")
-  ) {
-    new Component(
-      [
-        clickedPos[clickedPos.length - 1].pos,
-        clickedPos[clickedPos.length - 2].pos,
-      ],
-      componentHandler.getCurrentComponent().name
-    );
+  console.log(clickedPos[clickedPos.length - 1].coordinate)
+  if (clickedPos.length >= 2 && clickedPos[clickedPos.length - 1].coordinate.type === null && clickedPos[clickedPos.length - 2].coordinate.type === null) {
+    if (
+      componentHandler.currentComp &&
+      (componentHandler.currentComp.name == "Cable" ||
+        componentHandler.currentComp.name == "Jumper Wire") &&
+      ((clickedPos[clickedPos.length - 1].classList.contains("grid-square") &&
+        clickedPos[clickedPos.length - 2].classList.contains("power-base-pin")) ||
+        (clickedPos[clickedPos.length - 1].classList.contains("power-base-pin") &&
+          clickedPos[clickedPos.length - 2].classList.contains("grid-square")))
+    ) {
+      new Wire(
+        [
+          clickedPos
+            .reverse()
+            .find((element) => element.classList.contains("grid-square")).pos,
+          clickedPos
+            .reverse()
+            .find((element) => element.classList.contains("power-base-pin")),
+        ],
+        componentHandler.currentComp.name
+      );
+    } else if (
+      componentHandler.currentComp &&
+      clickedPos[clickedPos.length - 1].classList.contains("grid-square") &&
+      clickedPos[clickedPos.length - 2].classList.contains("grid-square")
+    ) {
+      new Component(
+        [
+          clickedPos[clickedPos.length - 2].pos,
+          clickedPos[clickedPos.length - 1].pos,
+        ],
+        componentHandler.getCurrentComponent().name
+      );
+    }
   }
   // clear the array with the last two elements that were clicked in it
   if (clickedPos.length == 2) {
