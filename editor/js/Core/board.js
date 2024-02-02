@@ -66,6 +66,7 @@ class Board {
     
     updatePower() {
         this.updateWires();
+        this.updateResistors();
         for (const comp of this.components) {
             this.updatePowerCircleComp(comp);
         }
@@ -114,6 +115,19 @@ class Board {
         }
     }
 
+    updateResistors() {
+        for (const comp of this.components) {
+            if (comp.type == "Resistor") {
+                for (let xy = -2; xy <= 2; xy++) {
+                    try {
+                        this.getComponent(comp.pos[1][0] + xy, comp.pos[1][1]).resistance = comp.props.resistance;
+                        this.getComponent(comp.pos[1][0], comp.pos[1][1] + xy).resistance = comp.props.resistance;
+                    }catch(err) { /* ignore */ }
+                }
+            }
+        }
+    }
+
     // Checking if a comp is in a PowerCircle
     updatePowerCircleComp(comp) {
         if (this.getComponent(comp.pos[0][0], comp.pos[0][1]).hasPower && 
@@ -124,6 +138,7 @@ class Board {
 
     screenRefresh() {
         this.bufferContext.clearRect(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
+        compsLoaded = 0;
         for (const wire of this.wires) {
             wire.update();
         }

@@ -36,12 +36,12 @@
             <div class="list-container" id="component-list"></div>
             <div id="inspector"></div>
             <div id="text-editor">
-                <button onclick="eval(cm.getValue())">Run</button>
+                <button onclick="runUserScript();">Run</button>
                 <textarea id="editor"></textarea>
             </div>
         </div>
     </div>
-    <canvas id="buffer-canvas" style="opacity: 0;" width="700px" height="500px"></canvas>
+    <canvas id="buffer-canvas" style="display: none;" width="700px" height="500px"></canvas>
     <canvas id="canvas-overlay" width="700px" height="500px"></canvas>
     <div id="board"></div> 
     <div id="power-base" style="width: 450px; height: 200px;"></div>

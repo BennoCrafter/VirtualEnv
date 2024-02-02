@@ -9,7 +9,17 @@ const cm = CodeMirror.fromTextArea(document.getElementById("editor"), {
 })
 
 cm.on("inputRead", function (editor, change) {
-    if (change.origin !== "setValue") {
+    if (change.origin !== "setValue" && change.text != " " && change.text != ";") {
       CodeMirror.commands.autocomplete(editor, null, { completeSingle: false });
     }
 });
+
+function runUserScript() {
+  for (wire of board.wires) {
+    wire.userWantsPower = false;
+  }
+  board.updatePower();
+  board.screenRefresh();
+
+  eval(cm.getValue());
+}

@@ -1,25 +1,35 @@
+function createComponent(pos, type) {
+    switch (type) {
+        case "LED":
+            new LED(pos, type);
+            break;
+        case "Resistor":
+            new Resistor(pos, type);
+            break;
+        default:
+            new Component(pos, type);
+            break;
+    }
+}
+
 class Component {
     constructor (pos, type) {
         this.id = board.components.length;
         this.pos = pos;
         this.type = type;
+        this.props = {}
         this.hasPowerCircle = false;
         this.imageFromTop = componentHandler.getCurrentComponent().imageFromTop;
-        this.props = {
-            color: "red",
-            size: 15
-        }
         this.build();
     }
 
     build() {
         board.components.push(this);
         board.placeComponent(this);
-        this.update();
     }
 
     // IMPORTANT: update() only draws the image and the feets again and dosent delete them!
-    update() { 
+    update() {
         const compImage = new Image();
         compImage.src = this.imageFromTop;
         const that = this;
@@ -28,27 +38,13 @@ class Component {
             var xPos = Math.round((that.pos[0][0] + that.pos[1][0]) * 25) / 2;
             var yPos = Math.round(((that.pos[0][1] + that.pos[1][1]) * 25) / 2) - 25;
             that.__drawFeets(xPos, yPos);
-            if (that.hasPowerCircle && that.props.size > 0 && 
-                    board.getComponent(that.pos[0][0], that.pos[0][1]).powerStrenght - 
-                    board.getComponent(that.pos[0][0], that.pos[0][1]).resistance > 0) {
-                board.bufferContext.shadowColor = that.props.color;  
-                board.bufferContext.shadowBlur = that.props.size;
-                for (let i = 0; i < board.getComponent(that.pos[0][0], that.pos[0][1]).powerStrenght - 
-                board.getComponent(that.pos[0][0], that.pos[0][1]).resistance; i++) {
-                    board.bufferContext.drawImage(compImage, xPos, yPos, 25, 25);
-                }
-                board.bufferContext.shadowColor = 'transparent';
-                board.bufferContext.shadowBlur = 0;
-                board.bufferContext.globalAlpha = 1;
-            }
-            else {
-                board.bufferContext.drawImage(compImage, xPos, yPos, 25, 25);
-            }
+            board.bufferContext.drawImage(compImage, xPos, yPos, 25, 25);
 
-            if (that.id >= board.components.length - 1) {
+            if (compsLoaded >= board.components.length - 1) {
                 board.overlayContext.clearRect(0, 0, board.overlayCanvas.width, board.overlayCanvas.height);
                 board.overlayContext.drawImage(board.bufferCanvas, 0, 0);
             }
+            compsLoaded++;
         }
     }
 
@@ -68,6 +64,107 @@ class Component {
             board.bufferContext.strokeStyle = "grey";
             board.bufferContext.stroke();
         }
+    }
+}
+
+class LED extends Component {
+    constructor (pos, type) {
+        super(pos, type);
+
+        this.props = {
+            color: "red",
+            size: 15,
+        }
+    }
+
+    build() {
+        board.components.push(this);
+        board.placeComponent(this);
+    }
+
+    // IMPORTANT: update() only draws the image and the feets again and dosent delete them!
+    update() { 
+        const compImage = new Image();
+        compImage.src = this.imageFromTop;
+        const that = this;
+
+        compImage.onload = function () {
+            var xPos = Math.round((that.pos[0][0] + that.pos[1][0]) * 25) / 2;
+            var yPos = Math.round(((that.pos[0][1] + that.pos[1][1]) * 25) / 2) - 25;
+            that.__drawFeets(xPos, yPos);
+            if (that.hasPowerCircle && that.props.size > 0 && 
+                    board.getComponent(that.pos[0][0], that.pos[0][1]).powerStrenght - 
+                    board.getComponent(that.pos[0][0], that.pos[0][1]).resistance > 0) {
+                board.bufferContext.shadowColor = that.props.color;
+                board.bufferContext.shadowBlur = that.props.size;
+                for (let i = 0; i < board.getComponent(that.pos[0][0], that.pos[0][1]).powerStrenght - 
+                board.getComponent(that.pos[0][0], that.pos[0][1]).resistance; i++) {
+                    board.bufferContext.drawImage(compImage, xPos, yPos, 25, 25);
+                }
+                board.bufferContext.shadowColor = 'transparent';
+                board.bufferContext.shadowBlur = 0;
+                board.bufferContext.globalAlpha = 1;
+            }
+            else {
+                board.bufferContext.drawImage(compImage, xPos, yPos, 25, 25);
+            }
+
+            if (compsLoaded >= board.components.length - 1) {
+                console.log(compsLoaded)
+                board.overlayContext.clearRect(0, 0, board.overlayCanvas.width, board.overlayCanvas.height);
+                board.overlayContext.drawImage(board.bufferCanvas, 0, 0);
+            }
+            compsLoaded++;
+        }
+    }
+
+    __drawFeets(xPos, yPos) {
+        const values = {
+            cellSize: 25,
+            offsetBottom: [15, 10],
+            offsetTop: [7, 18],
+        }
+        for (let i = 0; i < 2; i++) {
+            board.bufferContext.beginPath();
+            board.bufferContext.moveTo(this.pos[i][0] * values.cellSize + values.offsetBottom[i], this.pos[i][1] * values.cellSize + (values.cellSize / 1.2));
+            board.bufferContext.lineTo(xPos + values.offsetTop[i], yPos + values.cellSize);
+            board.bufferContext.closePath();
+    
+            board.bufferContext.lineWidth = 2; 
+            board.bufferContext.strokeStyle = "grey";
+            board.bufferContext.stroke();
+        }
+    }
+}
+
+class Resistor extends Component {
+    constructor(pos, type) {
+        super(pos, type);
+        this.props = {
+            resistance: 2,
+        }
+    }
+
+    build() {
+        board.components.push(this);
+        board.placeComponent(this);
+    }
+}
+
+class Button extends Component {
+    constructor(pos, type) {
+        super(pos, type);
+        this.props = {
+            action: null,
+        }
+    }
+
+    setAction(callback) {
+        this.props.action = callback;
+    }
+
+    callAction() {
+        this.props.action();
     }
 }
 

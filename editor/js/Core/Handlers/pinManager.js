@@ -11,6 +11,7 @@ function addEventListenerToPins(pin) {
 
 function updateSelectedPin(pin) {
   if (selectedPin) {
+    updateInspector();
     selectedPin.style.borderColor = "black";
     selectedPin.style.borderWidth = "1px";
   }
@@ -51,7 +52,7 @@ function checkPinPlace() {
       clickedPos[clickedPos.length - 1].classList.contains("grid-square") &&
       clickedPos[clickedPos.length - 2].classList.contains("grid-square")
     ) {
-      new Component(
+      createComponent(
         [
           clickedPos[clickedPos.length - 2].pos,
           clickedPos[clickedPos.length - 1].pos,

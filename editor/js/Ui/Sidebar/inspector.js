@@ -18,6 +18,7 @@ function updateInspector() {
 
     if (pinCord.type) {
         let index = 0;
+        console.log(pinCord.type)
         for (const name of Object.keys(pinCord.type.props)) {
             const newInput = document.createElement("input");
             newInput.placeholder = name[0].toUpperCase() + name.substring(1);
