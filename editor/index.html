@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/board.css">
     <link rel="stylesheet" type="text/css" href="css/powerBase.css">
-    <link rel="stylesheet" type="text/css" href="css/components-style.css">
     <link rel="stylesheet" href="css/sidebar.css">
 
     <!--Google Fonts-->
@@ -43,8 +42,11 @@
     </div>
     <canvas id="buffer-canvas" style="display: none;" width="700px" height="500px"></canvas>
     <canvas id="canvas-overlay" width="700px" height="500px"></canvas>
-    <div id="board"></div> 
-    <div id="power-base" style="width: 450px; height: 200px;"></div>
+    <div id="board"></div>
+    <div id="power-base" style="width: 450px; height: 200px;">
+        <div id="plus-pins"></div>
+        <div id="ground-pins"></div>
+    </div>
 
     <!--Main Script-->
     <script src="js/script.js"></script>

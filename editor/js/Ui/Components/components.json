@@ -24,25 +24,17 @@
         "description": "This is a description of Component 4."
     },
     {
-        "image": "js/Ui/Components/Images/redLED.png",
-        "name": "Light Sensor",
-        "description": "This is a description of Component 5."
-    },
-    {
-        "image": "js/Ui/Components/Images/redLED.png",
-        "name": "Variable Resistor",
+        "image": "js/Ui/Components/Images/display.png",
+        "imageFromTop": "js/Ui/Components/Images/displayTopView.png",
+        "name": "Display",
+        "type": "display",
         "description": "This is a description of Component 6."
     },    
     {
         "image": "js/Ui/Components/Images/redLED.png",
         "name": "Cable",
+        "type": "cable",
         "description": "This is a description of Component 7."
-    },
-    {
-        "image": "js/Ui/Components/Images/redLED.png",
-        "name": "Jumper Wire",
-        "type": "jumper Wire",
-        "description": "This is a description of Component 8."
     },
     {
         "image": "js/Ui/Components/Images/redLED.png",

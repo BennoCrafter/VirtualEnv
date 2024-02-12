@@ -73,10 +73,9 @@ class Board {
 
     }
 
-    // Updates ground- and pluspower for each grid on the board
+    // Updates ground- and pluspower for each wire
     updateWires() {
         for (const wire of this.wires) {
-            console.log(wire)
             if (wire.pos[1].props.type == "plus-pin" && wire.userWantsPower) {
                 for (let xy = -2; xy <= 2; xy++) {
                     try {
@@ -85,7 +84,7 @@ class Board {
                     }catch(err) { /* ignore */ }
                 }
             }
-            else {
+            else if (wire.userWantsPower) {
                 for (let xy = -2; xy <= 2; xy++) {
                     try {
                         this.getComponent(wire.pos[0][0] + xy, wire.pos[0][1]).hasGroundPower = true;
@@ -97,16 +96,32 @@ class Board {
             if (wire.userWantsPower) {
                 for (let xy = -2; xy <= 2; xy++) {
                     try {
-                        console.log("ASd: ", wire.props.strenght)
                         this.getComponent(wire.pos[0][0] + xy, wire.pos[0][1]).powerStrenght = wire.props.strenght;
                         this.getComponent(wire.pos[0][0], wire.pos[0][1] + xy).powerStrenght = wire.props.strenght;
                     }catch(err) { /* ignore */ }
                 }
             }
             else {
+                /*
+                if (wire.pos[1].props.type == "plus-pin") {
+                    for (let xy = -2; xy <= 2; xy++) {
+                        try {
+                            this.getComponent(wire.pos[0][0] + xy, wire.pos[0][1]).hasPower = false;
+                            this.getComponent(wire.pos[0][0], wire.pos[0][1] + xy).hasPower = false;
+                        }catch(err) { /* ignore */ /*}
+                    }
+                }
+                else {
+                    for (let xy = -2; xy <= 2; xy++) {
+                        try {
+                            this.getComponent(wire.pos[0][0] + xy, wire.pos[0][1]).hasGroundPower = false;
+                            this.getComponent(wire.pos[0][0], wire.pos[0][1] + xy).hasGroundPower = false;
+                        }catch(err) { /* ignore */ /*}
+                    }
+                }
+                */
                 for (let xy = -2; xy <= 2; xy++) {
                     try {
-                        console.log("ASd: ", wire.props.strenght)
                         this.getComponent(wire.pos[0][0] + xy, wire.pos[0][1]).powerStrenght = 0;
                         this.getComponent(wire.pos[0][0], wire.pos[0][1] + xy).powerStrenght = 0;
                     }catch(err) { /* ignore */ }
@@ -144,6 +159,11 @@ class Board {
         }
         for (const comp of this.components) {
             comp.update();
+        }
+
+        if (this.wires.length === 0 && this.components.length === 0) {
+            this.overlayContext.clearRect(0, 0, this.overlayCanvas.width, this.overlayCanvas.height);
+            this.overlayContext.drawImage(this.bufferCanvas, 0, 0);
         }
     }
 

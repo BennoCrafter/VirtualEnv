@@ -1,7 +1,10 @@
 class PowerBase {
     constructor (container, amountPlusPins, amountGrondPins, offsetBoard) {
         this.container = container;
-        this.container.pins = [[], []];
+        this.container.pins = {
+            "plus-pin": [],
+            "ground-pin": []
+        };
         this.amountPins = [amountPlusPins, amountGrondPins]
         this.offsetBoard = offsetBoard;
         this.cellSize = 15;
@@ -21,9 +24,9 @@ class PowerBase {
                 addEventListenerToPins(newPin);
                 newPin.innerHTML = `<br>${pin + 1}`;
                 
-                this.container.appendChild(newPin);
-                this.container.pins[index].push({ container: newPin, type: null });
-                newPin.coordinate = this.container.pins[index][pin];
+                document.getElementById(`${currentPinType}s`).appendChild(newPin);
+                this.container.pins[currentPinType].push({ container: newPin, type: null });
+                newPin.coordinate = this.container.pins[currentPinType][pin];
             }
             index++;
         }
@@ -33,11 +36,12 @@ class PowerBase {
         pin.classList.add("power-base-pin");
         pin.style.width = `${this.cellSize}px`
         pin.style.height = `${this.cellSize}px`
-        pin.style.marginTop = `${this.cellSize + ((this.container.style.height.split("px")[0] - (this.cellSize * 4)) * index)}px`;
+        pin.style.marginTop = `${this.cellSize + ((this.container.style.height.split("px")[0] - (this.cellSize * 4) - 32) * index)}px`;
         pin.style.marginLeft = pin.style.width;
     }
 
     setupPinProps(pin, type, pos) {
+        pin.coordinate = this.container.pins[type][pos]
         pin.props = {
             pos: pos,
             type: type
@@ -45,8 +49,7 @@ class PowerBase {
     }
 
     placeWire(wire) {
-        const typeIndex = {"plus-pin": 0, "ground-pin": 1};
-        this.container.pins[typeIndex[wire.pos[1].props.type]][wire.pos[1].props.pos].type = wire;
+        this.container.pins[wire.pos[1].props.type][wire.pos[1].props.pos].type = wire;
     }
 
     convertPinPosToPx(pin) {

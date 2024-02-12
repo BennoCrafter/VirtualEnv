@@ -1,6 +1,11 @@
 #power-base {
     margin-left: calc(50% - 25px);
-    background-color: green;
+    background: green;
+    display: flex;
+    flex-direction: column;
+}
+
+#ground-pins, #plus-pins {
     display: flex;
 }
 

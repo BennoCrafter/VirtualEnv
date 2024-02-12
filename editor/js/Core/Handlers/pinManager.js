@@ -11,7 +11,6 @@ function addEventListenerToPins(pin) {
 
 function updateSelectedPin(pin) {
   if (selectedPin) {
-    updateInspector();
     selectedPin.style.borderColor = "black";
     selectedPin.style.borderWidth = "1px";
   }
@@ -25,7 +24,6 @@ function updateSelectedPin(pin) {
 
 function checkPinPlace() {
   // checking for the last two elements thats clicked and placeing components
-  console.log(clickedPos[clickedPos.length - 1].coordinate)
   if (clickedPos.length >= 2 && clickedPos[clickedPos.length - 1].coordinate.type === null && clickedPos[clickedPos.length - 2].coordinate.type === null) {
     if (
       componentHandler.currentComp &&
@@ -50,7 +48,8 @@ function checkPinPlace() {
     } else if (
       componentHandler.currentComp &&
       clickedPos[clickedPos.length - 1].classList.contains("grid-square") &&
-      clickedPos[clickedPos.length - 2].classList.contains("grid-square")
+      clickedPos[clickedPos.length - 2].classList.contains("grid-square") &&
+      clickedPos[clickedPos.length - 1] != clickedPos[clickedPos.length - 2] 
     ) {
       createComponent(
         [
