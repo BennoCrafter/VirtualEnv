@@ -1,6 +1,6 @@
 #power-base {
     margin-left: calc(50% - 25px);
-    background: green;
+    background: url("../img/Powerbase.png");
     display: flex;
     flex-direction: column;
 }

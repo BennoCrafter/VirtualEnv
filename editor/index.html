@@ -30,12 +30,13 @@
             <button>Components</button>
             <button>Inspector</button>
             <button>Text Editor</button>
+            <button onclick="save()">Save to JSON</button>
         </div>
         <div id="sidebar-elements">
             <div class="list-container" id="component-list"></div>
             <div id="inspector"></div>
             <div id="text-editor">
-                <button onclick="runUserScript();">Run</button>
+                <img src="img/run-button.png" width="25px" onclick="runUserScript();"></img>
                 <textarea id="editor"></textarea>
             </div>
         </div>
@@ -68,5 +69,7 @@
     <!--EnvScript Scrips-->
     <script src="js/EnvScript/pin.js"></script>
     <script src="js/EnvScript/defs.js"></script>
+
+    <script src="js/SaveLoad/save.js"></script>
 </body>
 </html>

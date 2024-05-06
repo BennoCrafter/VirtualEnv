@@ -83,3 +83,21 @@
 .list-item:hover {
     background-color: #ccc;
 }
+
+#sidebar-buttons button {
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+    border-right: 1px #a5ceab solid;
+    margin-left: 0px;
+    width: 100px;
+    height: 30px;
+}
+
+#text-editor img {
+    margin-top: 10px;
+    margin-left: 30px;
+}
+#text-editor img:hover {
+    cursor: pointer;
+}

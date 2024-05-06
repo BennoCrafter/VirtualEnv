@@ -143,6 +143,19 @@ class Board {
         }
     }
 
+    updateButtons() {
+        for (const comp of this.components) {
+            if (comp.type == "Button") {
+                const button = this.container.children[comp.pos[1][0]].children[comp.pos[1][1]];
+                button.removeEventListener("click", comp.clickHandler);
+                comp.clickHandler = (event) => {
+                    comp.callAction();
+                };
+                button.addEventListener("click", comp.clickHandler);
+            }
+        }
+    }
+
     // Checking if a comp is in a PowerCircle
     updatePowerCircleComp(comp) {
         if (this.getComponent(comp.pos[0][0], comp.pos[0][1]).hasPower && 
@@ -152,6 +165,7 @@ class Board {
     }
 
     screenRefresh() {
+        this.updateButtons();
         this.bufferContext.clearRect(0, 0, this.bufferCanvas.width, this.bufferCanvas.height);
         compsLoaded = 0;
         for (const wire of this.wires) {
